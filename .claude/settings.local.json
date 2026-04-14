@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "WebSearch",
+      "WebFetch(domain:www.nrcgroup.com)",
+      "WebFetch(domain:stockanalysis.com)",
+      "WebFetch(domain:news.cision.com)",
+      "WebFetch(domain:live.euronext.com)",
+      "WebFetch(domain:www.investing.com)",
+      "WebFetch(domain:www.marketscreener.com)",
+      "WebFetch(domain:mb.cision.com)",
+      "WebFetch(domain:www.tipranks.com)",
+      "WebFetch(domain:companiesmarketcap.com)",
+      "WebFetch(domain:www.inderes.dk)",
+      "WebFetch(domain:www.inderes.se)",
+      "Read(//c/Users/vi89/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/d6a5dbfc-d68a-4e3a-8f9d-c448e33697b3/ebbf2ee6-99c8-496f-a6a6-f78248d32e61/skills/xlsx/**)",
+      "Bash(python build_nrc.py)",
+      "Bash(where python3:*)",
+      "Bash(where python:*)",
+      "Read(//c/Program Files/**)",
+      "Bash(python3 build_nrc.py)",
+      "Bash(\"C:\\\\Users\\\\vi89\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\python3.exe\" \"C:\\\\Users\\\\vi89\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\d6a5dbfc-d68a-4e3a-8f9d-c448e33697b3\\\\ebbf2ee6-99c8-496f-a6a6-f78248d32e61\\\\skills\\\\xlsx\\\\build_nrc.py\")",
+      "Bash(ls \"C:\\\\Program Files\\\\Python\"*)",
+      "Bash(npm install:*)",
+      "Bash(git init:*)",
+      "Bash(git config:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

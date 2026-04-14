@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>MathTower</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;height:100%;overflow:hidden;background:#1a1a1a;font-family:'Nunito',sans-serif;color:#fff;}
+#app{width:100%;max-width:430px;height:100%;margin:0 auto;position:relative;overflow:hidden;}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;transition:opacity .25s;}
+.screen.off{opacity:0;pointer-events:none;}
+#sHome{background:linear-gradient(180deg,#0d0d0d 0%,#1a1208 60%,#0d0d0d 100%);}
+.logo{font-family:'Fredoka One',cursive;font-size:62px;line-height:1;background:linear-gradient(135deg,#ffe033 0%,#ff8c00 50%,#ff4444 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 30px rgba(255,224,51,.5));}
+.logo-sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:4px;}
+.hero{font-size:74px;margin:12px 0;animation:bob 2s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+.home-btns{display:flex;flex-direction:column;gap:11px;width:100%;max-width:285px;margin-top:8px;}
+.hbtn{border:none;border-radius:16px;padding:17px 20px;font-family:'Nunito',sans-serif;font-size:18px;font-weight:800;cursor:pointer;transition:all .14s;display:flex;align-items:center;gap:12px;width:100%;}
+.hbtn:active{transform:scale(.96);}
+.hbtn .ico{font-size:26px;width:32px;text-align:center;}
+.hbtn .lbl{flex:1;text-align:left;}
+.hbtn .arr{opacity:.5;font-size:16px;}
+.hb-play{background:linear-gradient(135deg,#ffe033,#ff8c00);color:#1a0800;box-shadow:0 8px 28px rgba(255,200,0,.4);}
+.hb-play:hover{transform:translateY(-3px);}
+.hb-train{background:linear-gradient(135deg,#00d2d3,#0891b2);color:#001616;box-shadow:0 6px 20px rgba(0,210,211,.3);}
+.hb-chal{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.13);color:rgba(255,255,255,.5);}
+.hs-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:10px 28px;text-align:center;margin-top:14px;}
+.hs-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.hs-val{font-family:'Fredoka One',cursive;font-size:28px;color:#ffe033;}
+.btn-sm{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:10px 24px;font-size:14px;font-weight:700;font-family:'Nunito',sans-serif;color:rgba(255,255,255,.7);cursor:pointer;transition:all .13s;margin-top:8px;}
+#sDiff{gap:12px;padding:24px 20px;background:linear-gradient(180deg,#0d0d0d,#1a1208,#0d0d0d);}
+.sh-title{font-family:'Fredoka One',cursive;font-size:30px;color:#ffe033;}
+.sh-sub{font-size:13px;color:rgba(255,255,255,.36);margin-bottom:4px;}
+.dlist{display:flex;flex-direction:column;gap:10px;width:100%;max-width:360px;}
+.dcard{border-radius:18px;padding:16px 18px;cursor:pointer;transition:all .14s;border:2px solid transparent;display:flex;align-items:center;gap:13px;}
+.dcard:active{transform:scale(.97);}
+.dc-e{background:rgba(29,209,161,.12);}.dc-m{background:rgba(255,200,0,.12);}.dc-h{background:rgba(255,80,80,.12);}
+.dcard.sel.dc-e{border-color:#1dd1a1;}.dcard.sel.dc-m{border-color:#ffe033;}.dcard.sel.dc-h{border-color:#ff5050;}
+.dico{font-size:36px;}.dinfo{flex:1;}
+.dname{font-family:'Fredoka One',cursive;font-size:22px;}
+.dn-e{color:#1dd1a1;}.dn-m{color:#ffe033;}.dn-h{color:#ff5050;}
+.ddesc{font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;line-height:1.4;}
+.dex{font-size:11px;color:rgba(255,255,255,.28);margin-top:3px;font-style:italic;}
+.dmult{font-size:13px;font-weight:900;padding:5px 11px;border-radius:20px;}
+.dm-e{background:rgba(29,209,161,.18);color:#1dd1a1;}.dm-m{background:rgba(255,200,0,.18);color:#ffe033;}.dm-h{background:rgba(255,80,80,.18);color:#ff5050;}
+.row{display:flex;gap:10px;margin-top:4px;}
+.btn-back{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:50px;padding:12px 26px;font-size:15px;font-weight:700;font-family:'Nunito',sans-serif;color:rgba(255,255,255,.75);cursor:pointer;transition:all .13s;}
+.btn-go{background:linear-gradient(135deg,#ffe033,#ff8c00);color:#1a0800;border:none;border-radius:50px;padding:14px 40px;font-size:20px;font-weight:900;font-family:'Nunito',sans-serif;cursor:pointer;transition:all .13s;box-shadow:0 6px 24px rgba(255,200,0,.4);}
+.btn-go:hover{transform:translateY(-2px);}
+#sTrain{gap:9px;padding:20px 18px;background:linear-gradient(180deg,#0d0d0d,#081a10,#0d0d0d);justify-content:flex-start;padding-top:44px;overflow-y:auto;}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%;max-width:380px;}
+.ccard{background:rgba(255,255,255,.06);border:2px solid transparent;border-radius:15px;padding:15px 11px;cursor:pointer;text-align:center;transition:all .14s;}
+.ccard:hover{background:rgba(255,255,255,.1);transform:translateY(-2px);}
+.ccard.sel{border-color:#00d2d3;background:rgba(0,210,211,.09);}
+.ccard.wide{grid-column:1/-1;background:rgba(0,210,211,.08);border-color:rgba(0,210,211,.25);}
+.cico{font-size:28px;margin-bottom:4px;}.cname{font-weight:800;font-size:14px;}
+.cdesc{font-size:11px;color:rgba(255,255,255,.36);margin-top:3px;}
+.btn-teal{background:linear-gradient(135deg,#00d2d3,#0891b2);color:#001616;border:none;border-radius:50px;padding:14px 38px;font-size:19px;font-weight:900;font-family:'Nunito',sans-serif;cursor:pointer;transition:all .13s;box-shadow:0 6px 20px rgba(0,210,211,.32);}
+#sGame{z-index:5;background:transparent;justify-content:flex-start;}
+#gc{position:absolute;top:0;left:0;display:block;}
+#hud{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:10px 14px;z-index:20;background:linear-gradient(to bottom,rgba(0,0,0,.85),transparent);pointer-events:none;}
+.hb{display:flex;flex-direction:column;}.hb.c{align-items:center;}.hb.r{align-items:flex-end;}
+.hl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.38);}
+.hv{font-family:'Fredoka One',cursive;font-size:28px;color:#ffe033;line-height:1.05;}
+.hstreak{font-family:'Fredoka One',cursive;font-size:17px;color:#1dd1a1;}
+.hfloor{font-family:'Fredoka One',cursive;font-size:13px;color:#c084fc;margin-top:1px;}
+#spdbadge{position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:4px 13px;font-size:10px;letter-spacing:1px;z-index:25;pointer-events:none;white-space:nowrap;}
+#qpanel{position:absolute;bottom:0;left:0;right:0;background:rgba(10,8,4,.97);border-top:2px solid rgba(255,150,0,.25);padding:11px 13px 16px;z-index:20;}
+.qptop{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+.qcat{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);}
+.qbonus{font-size:11px;font-weight:800;color:#ffe033;background:rgba(255,200,0,.15);padding:3px 10px;border-radius:20px;display:none;}
+.qbonus.show{display:block;animation:blnk .45s ease-in-out infinite alternate;}
+@keyframes blnk{from{opacity:.6}to{opacity:1;filter:drop-shadow(0 0 6px #ffe033)}}
+#tbarw{width:100%;height:5px;background:rgba(255,255,255,.08);border-radius:5px;margin-bottom:9px;overflow:hidden;}
+#tbar{height:100%;border-radius:5px;transition:width .1s linear;}
+.qtext{font-size:22px;font-weight:800;color:#fff;text-align:center;min-height:30px;margin-bottom:10px;line-height:1.25;}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.abtn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:12px;padding:14px 8px;font-size:16px;font-weight:700;font-family:'Nunito',sans-serif;color:#fff;cursor:pointer;transition:all .12s;text-align:center;}
+.abtn:hover:not(:disabled){background:rgba(255,255,255,.14);transform:scale(1.02);}
+.abtn.ok{background:rgba(29,209,161,.25);border-color:#1dd1a1;color:#1dd1a1;animation:pop .4s;}
+.abtn.no{background:rgba(255,80,80,.22);border-color:#ff5050;color:#ff5050;animation:shk .36s;}
+.abtn:disabled{cursor:default;}
+@keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.1)}100%{transform:scale(1)}}
+@keyframes shk{0%,100%{transform:translateX(0)}25%,75%{transform:translateX(-6px)}50%{transform:translateX(6px)}}
+.floatlbl{position:absolute;pointer-events:none;z-index:60;font-family:'Fredoka One',cursive;font-size:26px;animation:fup .9s forwards;}
+@keyframes fup{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-90px) scale(1.5)}}
+.bounceflash{position:absolute;pointer-events:none;z-index:58;animation:flash .6s forwards;}
+@keyframes flash{0%{opacity:.9}100%{opacity:0;transform:scale(1.08)}}
+#sOver{z-index:30;background:rgba(5,3,1,.97);gap:11px;}
+.go-ttl{font-family:'Fredoka One',cursive;font-size:50px;background:linear-gradient(135deg,#ff5050,#ffe033);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.go-big{font-family:'Fredoka One',cursive;font-size:76px;color:#ffe033;line-height:1;}
+.go-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.32);}
+.go-rec{font-family:'Fredoka One',cursive;font-size:21px;color:#ffe033;animation:glo 1s ease-in-out infinite alternate;}
+@keyframes glo{from{filter:drop-shadow(0 0 4px rgba(255,224,51,.3))}to{filter:drop-shadow(0 0 24px #ffe033)}}
+.go-stats{display:flex;gap:9px;}
+.go-s{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:13px;padding:11px 14px;text-align:center;min-width:74px;}
+.go-sv{font-family:'Fredoka One',cursive;font-size:24px;}
+.go-sl{font-size:9px;color:rgba(255,255,255,.36);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.go-btns{display:flex;flex-direction:column;align-items:center;gap:9px;width:100%;max-width:270px;}
+#sTP{background:linear-gradient(180deg,#0d0d0d,#081a10);gap:16px;padding:28px 20px;}
+.tp-cat{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.tp-st{font-family:'Fredoka One',cursive;font-size:19px;color:#00d2d3;}
+.tp-q{font-size:26px;font-weight:800;text-align:center;line-height:1.3;max-width:340px;}
+.tp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:360px;}
+.tp-prog{font-size:13px;color:rgba(255,255,255,.35);}
+#sLB{background:linear-gradient(180deg,#0d0d0d,#1a1208,#0d0d0d);gap:11px;padding:20px;justify-content:flex-start;padding-top:44px;overflow-y:auto;}
+.lb-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:13px;background:rgba(255,255,255,.05);margin-bottom:7px;}
+.lb-rank{font-family:'Fredoka One',cursive;font-size:20px;width:28px;text-align:center;}
+.lb-info{flex:1;}
+.lb-score{font-family:'Fredoka One',cursive;font-size:19px;color:#ffe033;}
+.lb-sub{font-size:10px;color:rgba(255,255,255,.3);margin-top:2px;}
+.lb-empty{color:rgba(255,255,255,.25);text-align:center;padding:28px;font-size:15px;line-height:1.9;}
+.hidden{display:none!important;}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- HOME -->
+<div class="screen" id="sHome">
+  <div style="text-align:center"><div class="logo">MathTower</div><div class="logo-sub">Klatr høyere · Regn raskere</div></div>
+  <div class="hero">🧗</div>
+  <div class="home-btns">
+    <button class="hbtn hb-play" onclick="go('sDiff')"><span class="ico">🏆</span><span class="lbl">Spill nå</span><span class="arr">›</span></button>
+    <button class="hbtn hb-train" onclick="go('sTrain')"><span class="ico">🎓</span><span class="lbl">Trening</span><span class="arr">›</span></button>
+    <button class="hbtn hb-chal" onclick="alert('Utfordre venn kommer snart! 👀')"><span class="ico">👥</span><span class="lbl">Utfordre venn</span><span class="arr" style="color:rgba(255,255,255,.2)">snart</span></button>
+  </div>
+  <div class="hs-box"><div class="hs-lbl">Rekord</div><div class="hs-val" id="homeHS">–</div></div>
+  <button class="btn-sm" onclick="go('sLB')">🏅 Toppliste</button>
+</div>
+
+<!-- DIFFICULTY -->
+<div class="screen off" id="sDiff">
+  <div style="text-align:center"><div class="sh-title">Vanskelighetsgrad</div><div class="sh-sub">Jo vanskeligere, jo mer poeng</div></div>
+  <div class="dlist">
+    <div class="dcard dc-e sel" onclick="pickD('easy',this)">
+      <div class="dico">🌱</div><div class="dinfo"><div class="dname dn-e">Lett</div><div class="ddesc">Enkle oppgaver · God tid</div><div class="dex">Eks: 8×2, 50% av 200</div></div><div class="dmult dm-e">×1 poeng</div>
+    </div>
+    <div class="dcard dc-m" onclick="pickD('med',this)">
+      <div class="dico">⚡</div><div class="dinfo"><div class="dname dn-m">Middels</div><div class="ddesc">Blandede oppgaver · Kortere tid</div><div class="dex">Eks: 8×7, 15% av 340</div></div><div class="dmult dm-m">×2 poeng</div>
+    </div>
+    <div class="dcard dc-h" onclick="pickD('hard',this)">
+      <div class="dico">🔥</div><div class="dinfo"><div class="dname dn-h">Vanskelig</div><div class="ddesc">Tøffe oppgaver · Knapp tid</div><div class="dex">Eks: 12×17, rente p.a.</div></div><div class="dmult dm-h">×3 poeng</div>
+    </div>
+  </div>
+  <div class="row"><button class="btn-back" onclick="go('sHome')">← Tilbake</button><button class="btn-go" onclick="startGame()">Start! 🚀</button></div>
+</div>
+
+<!-- TRAINING MENU -->
+<div class="screen off" id="sTrain">
+  <div style="text-align:center"><div class="sh-title" style="color:#00d2d3">Trening</div><div class="sh-sub">Ingen tidsbegrensning – øv så lenge du vil</div></div>
+  <div class="cgrid">
+    <div class="ccard wide sel" onclick="pickC('mix',this)"><div class="cico">🎲</div><div class="cname">Miks alt</div><div class="cdesc">Alle kategorier</div></div>
+    <div class="ccard" onclick="pickC('prosent',this)"><div class="cico">%</div><div class="cname">Prosentregning</div><div class="cdesc">Rabatter, renter</div></div>
+    <div class="ccard" onclick="pickC('mult',this)"><div class="cico">✖️</div><div class="cname">Multiplikasjon</div><div class="cdesc">Gangetabellen</div></div>
+    <div class="ccard" onclick="pickC('tid',this)"><div class="cico">⏰</div><div class="cname">Tidsregning</div><div class="cdesc">Timer, minutter</div></div>
+    <div class="ccard" onclick="pickC('handel',this)"><div class="cico">🛒</div><div class="cname">Handel & penger</div><div class="cdesc">Priser, budsjett</div></div>
+    <div class="ccard" onclick="pickC('areal',this)"><div class="cico">📐</div><div class="cname">Areal & mål</div><div class="cdesc">Flater, rom</div></div>
+    <div class="ccard" onclick="pickC('hode',this)"><div class="cico">🧠</div><div class="cname">Hoderegning</div><div class="cdesc">Rask matte</div></div>
+    <div class="ccard" onclick="pickC('stat',this)"><div class="cico">📊</div><div class="cname">Statistikk</div><div class="cdesc">Gjennomsnitt</div></div>
+  </div>
+  <div class="row"><button class="btn-back" onclick="go('sHome')">← Tilbake</button><button class="btn-teal" onclick="startTraining()">Tren! 🎓</button></div>
+</div>
+
+<!-- GAME -->
+<div class="screen off" id="sGame" style="justify-content:flex-start">
+  <canvas id="gc"></canvas>
+  <div id="hud">
+    <div class="hb"><div class="hl">Poeng</div><div class="hv" id="hScore">0</div></div>
+    <div class="hb c"><div class="hl">Streak</div><div class="hstreak" id="hStreak">🔥 0</div><div class="hfloor" id="hFloor">Etasje 1</div></div>
+    <div class="hb r"><div class="hl">Liv</div><div id="hLives" style="font-size:20px;display:flex;gap:2px">❤️❤️❤️</div></div>
+  </div>
+  <div id="spdbadge">🌱 Lett · Etasje 1</div>
+  <div id="qpanel">
+    <div class="qptop"><div class="qcat" id="qCat">–</div><div class="qbonus" id="qBonus">⚡ BONUS ×1.5!</div></div>
+    <div id="tbarw"><div id="tbar" style="width:100%"></div></div>
+    <div class="qtext" id="qText">Laster...</div>
+    <div class="agrid" id="aGrid"></div>
+  </div>
+</div>
+
+<!-- TRAINING PLAY -->
+<div class="screen off" id="sTP">
+  <div class="tp-cat" id="tpCat">–</div>
+  <div class="tp-st" id="tpSt">🔥 Streak: 0</div>
+  <div class="tp-q" id="tpQ">Laster...</div>
+  <div class="tp-grid" id="tpGrid"></div>
+  <div class="tp-prog" id="tpProg">0 riktige · 0 feil</div>
+  <button class="btn-back" style="margin-top:6px" onclick="go('sTrain')">← Tilbake</button>
+</div>
+
+<!-- GAME OVER -->
+<div class="screen off" id="sOver">
+  <div class="go-ttl">Game Over!</div>
+  <div style="text-align:center"><div class="go-big" id="goScore">0</div><div class="go-lbl">Poeng</div></div>
+  <div class="go-rec hidden" id="goRec">🏆 NY REKORD!</div>
+  <div class="go-stats">
+    <div class="go-s"><div class="go-sv" id="goFloor">–</div><div class="go-sl">Etasje</div></div>
+    <div class="go-s"><div class="go-sv" id="goCorrect">–</div><div class="go-sl">Riktige</div></div>
+    <div class="go-s"><div class="go-sv" id="goBest">–</div><div class="go-sl">Streak</div></div>
+    <div class="go-s"><div class="go-sv" id="goBonus">–</div><div class="go-sl">Bonus</div></div>
+  </div>
+  <div class="go-btns">
+    <button class="btn-go" onclick="startGame()">Prøv igjen</button>
+    <button class="btn-back" onclick="go('sDiff')">Bytt vanskelighet</button>
+    <button class="btn-back" onclick="go('sHome')">🏠 Hjem</button>
+  </div>
+</div>
+
+<!-- LEADERBOARD -->
+<div class="screen off" id="sLB">
+  <div class="sh-title" style="text-align:center">🏆 Toppliste</div>
+  <div style="width:100%;max-width:360px" id="lbList"></div>
+  <button class="btn-back" onclick="go('sHome')">← Tilbake</button>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  AUDIO
+// ══════════════════════════════════════════════
+let AC;
+function getAC(){if(!AC)AC=new(window.AudioContext||window.webkitAudioContext)();return AC;}
+function playTone(freq,type,vol,dur,delay=0){
+  try{const ac=getAC(),o=ac.createOscillator(),g=ac.createGain();
+  o.connect(g);g.connect(ac.destination);o.type=type;
+  o.frequency.setValueAtTime(freq,ac.currentTime+delay);
+  g.gain.setValueAtTime(vol,ac.currentTime+delay);
+  g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+delay+dur);
+  o.start(ac.currentTime+delay);o.stop(ac.currentTime+delay+dur+.05);}catch(e){}
+}
+function sfxCorrect(){playTone(440,'sine',.18,.12);playTone(660,'sine',.14,.1,.1);playTone(880,'sine',.1,.1,.2);}
+function sfxBonus(){
+  // Fanfare: ascending chord + extra sparkle
+  [523,659,784,1047,1319].forEach((f,i)=>playTone(f,'square',.13,.15,i*.07));
+  setTimeout(()=>{[1047,1319,1568].forEach((f,i)=>playTone(f,'sine',.1,.18,i*.06));},450);
+}
+function sfxWrong(){playTone(200,'sawtooth',.15,.3);}
+function sfxSplash(){
+  try{const ac=getAC(),buf=ac.createBuffer(1,ac.sampleRate*.5,ac.sampleRate),d=buf.getChannelData(0);
+  for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.exp(-i/(ac.sampleRate*.08));
+  const s=ac.createBufferSource(),g=ac.createGain();s.buffer=buf;s.connect(g);g.connect(ac.destination);
+  g.gain.setValueAtTime(.35,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.5);s.start();}catch(e){}
+}
+function sfxBounce(){playTone(300,'square',.1,.06);playTone(500,'square',.08,.06,.07);}
+function sfxPenalty(){
+  // whoosh sound for screen jump penalty
+  try{const ac=getAC(),o=ac.createOscillator(),g=ac.createGain();
+  o.connect(g);g.connect(ac.destination);o.type='sawtooth';
+  o.frequency.setValueAtTime(400,ac.currentTime);
+  o.frequency.exponentialRampToValueAtTime(80,ac.currentTime+.35);
+  g.gain.setValueAtTime(.2,ac.currentTime);
+  g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.35);
+  o.start();o.stop(ac.currentTime+.4);}catch(e){}
+}
+
+// ══════════════════════════════════════════════
+//  APP
+// ══════════════════════════════════════════════
+const APP=document.getElementById('app');
+let AW=APP.clientWidth, AH=APP.clientHeight;
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.add('off'));
+  document.getElementById(id).classList.remove('off');
+  if(id==='sHome')refreshHome();
+  if(id==='sLB')renderLB();
+}
+
+// ══════════════════════════════════════════════
+//  QUESTION BANK
+// ══════════════════════════════════════════════
+const QB={
+prosent:[
+  {q:'50% av 20?',a:['10','5','15','20'],c:0,d:1},
+  {q:'10% av 100?',a:['10','1','100','20'],c:0,d:1},
+  {q:'50% av 40?',a:['20','10','30','40'],c:0,d:1},
+  {q:'25% av 100?',a:['25','10','50','75'],c:0,d:1},
+  {q:'10% av 50?',a:['5','10','15','20'],c:0,d:1},
+  {q:'50% av 80?',a:['40','20','60','30'],c:0,d:1},
+  {q:'800 kr, 25% rabatt?',a:['600 kr','650 kr','700 kr','550 kr'],c:0,d:2},
+  {q:'15% av 340 kr?',a:['51 kr','34 kr','68 kr','45 kr'],c:0,d:2},
+  {q:'200→250 kr. Økning %?',a:['25%','20%','30%','15%'],c:0,d:2},
+  {q:'30% av 450?',a:['135','100','180','90'],c:0,d:2},
+  {q:'6000→4500 kr. Rabatt %?',a:['25%','20%','30%','35%'],c:0,d:2},
+  {q:'10% opp, 10% ned. Netto?',a:['−1%','0%','+1%','−2%'],c:0,d:3},
+  {q:'10 000 kr, 5% rente, 2 år?',a:['11 025 kr','11 000 kr','10 500 kr','10 250 kr'],c:0,d:3},
+  {q:'38 000 kr, 33% skatt. Netto?',a:['25 460 kr','24 000 kr','26 600 kr','23 800 kr'],c:0,d:3},
+],
+mult:[
+  {q:'2 × 2',a:['4','2','6','8'],c:0,d:1},
+  {q:'3 × 3',a:['9','6','12','3'],c:0,d:1},
+  {q:'5 × 2',a:['10','5','15','7'],c:0,d:1},
+  {q:'4 × 2',a:['8','6','10','4'],c:0,d:1},
+  {q:'2 × 6',a:['12','8','10','14'],c:0,d:1},
+  {q:'3 × 4',a:['12','7','10','9'],c:0,d:1},
+  {q:'5 × 5',a:['25','20','30','15'],c:0,d:1},
+  {q:'10 × 3',a:['30','13','20','33'],c:0,d:1},
+  {q:'6 × 7',a:['42','36','48','45'],c:0,d:1},
+  {q:'8 × 7',a:['56','54','58','48'],c:0,d:2},
+  {q:'9 × 6',a:['54','56','52','48'],c:0,d:2},
+  {q:'15 × 6',a:['90','85','95','80'],c:0,d:2},
+  {q:'13 × 7',a:['91','84','98','77'],c:0,d:2},
+  {q:'12 × 17',a:['204','196','214','192'],c:0,d:3},
+  {q:'38 × 47',a:['1 786','1 776','1 800','1 760'],c:0,d:3},
+  {q:'24 × 13',a:['312','302','322','296'],c:0,d:3},
+],
+tid:[
+  {q:'Min i 1 time?',a:['60','30','100','45'],c:0,d:1},
+  {q:'Timer i 1 dag?',a:['24','12','48','7'],c:0,d:1},
+  {q:'Kl 3 + 2t?',a:['5','4','6','7'],c:0,d:1},
+  {q:'Mandag + 2 dager?',a:['Onsdag','Tirsdag','Torsdag','Fredag'],c:0,d:1},
+  {q:'7,5t/natt × 7 dager?',a:['52,5t','49t','56t','47,5t'],c:0,d:2},
+  {q:'Fly 06:20, 1t45min dit. Avreise?',a:['04:35','04:45','04:30','05:00'],c:0,d:2},
+  {q:'1 000 min = ? t og min',a:['16t 40min','15t 0min','17t 0min','16t 0min'],c:0,d:2},
+  {q:'3 uker fra 5. mai?',a:['26. mai','28. mai','2. juni','25. mai'],c:0,d:3},
+],
+handel:[
+  {q:'20 kr − 8 kr?',a:['12 kr','8 kr','18 kr','10 kr'],c:0,d:1},
+  {q:'Is 15 kr × 2?',a:['30 kr','25 kr','20 kr','35 kr'],c:0,d:1},
+  {q:'50 kr − 30 kr = ?',a:['20 kr','30 kr','10 kr','25 kr'],c:0,d:1},
+  {q:'3 epler × 5 kr?',a:['15 kr','10 kr','20 kr','8 kr'],c:0,d:1},
+  {q:'4 × 25 kr?',a:['100 kr','80 kr','120 kr','75 kr'],c:0,d:1},
+  {q:'5 kg × 24,90 kr/kg?',a:['124,50 kr','120 kr','125 kr','130 kr'],c:0,d:2},
+  {q:'22,50 kr/L × 48 L?',a:['1 080 kr','1 060 kr','1 100 kr','960 kr'],c:0,d:2},
+  {q:'429 kr/mnd × 12?',a:['5 148 kr','4 800 kr','5 000 kr','5 200 kr'],c:0,d:2},
+  {q:'150 000 kr, 3,5%/år. 1. mnd rente?',a:['437,50 kr','525 kr','350 kr','500 kr'],c:0,d:3},
+],
+areal:[
+  {q:'3m × 4m = ?',a:['12 m²','7 m²','10 m²','16 m²'],c:0,d:1},
+  {q:'Firkant, side 5m. Omkrets?',a:['20 m','10 m','25 m','15 m'],c:0,d:1},
+  {q:'2m × 6m = ?',a:['12 m²','8 m²','16 m²','10 m²'],c:0,d:1},
+  {q:'Trekant b=6m h=4m. Areal?',a:['12 m²','24 m²','10 m²','8 m²'],c:0,d:2},
+  {q:'20×20cm fliser, 12m² rom?',a:['300','240','360','280'],c:0,d:2},
+  {q:'Sirkel r=7m. Areal (π≈3,14)?',a:['153,86 m²','140 m²','160 m²','125 m²'],c:0,d:3},
+  {q:'4,5×3,2m, 129 kr/m²?',a:['1 858 kr','1 800 kr','2 000 kr','1 750 kr'],c:0,d:3},
+],
+hode:[
+  {q:'5 + 7',a:['12','10','11','13'],c:0,d:1},
+  {q:'10 − 4',a:['6','4','7','8'],c:0,d:1},
+  {q:'20 + 15',a:['35','30','25','40'],c:0,d:1},
+  {q:'50 − 20',a:['30','20','40','10'],c:0,d:1},
+  {q:'6 + 9',a:['15','14','16','13'],c:0,d:1},
+  {q:'17 + 8',a:['25','24','26','23'],c:0,d:1},
+  {q:'100 − 37',a:['63','67','73','57'],c:0,d:1},
+  {q:'15 × 8',a:['120','115','125','110'],c:0,d:2},
+  {q:'¾ av 400',a:['300','320','280','350'],c:0,d:2},
+  {q:'√225',a:['15','14','16','13'],c:0,d:2},
+  {q:'(8+12) × 7',a:['140','120','160','130'],c:0,d:3},
+  {q:'1728 ÷ 12',a:['144','136','148','132'],c:0,d:3},
+],
+stat:[
+  {q:'Snitt av 2, 4, 6?',a:['4','3','5','6'],c:0,d:1},
+  {q:'Mynt. Sjanse for kron?',a:['50%','25%','75%','100%'],c:0,d:1},
+  {q:'Snitt av 10 og 20?',a:['15','10','20','12'],c:0,d:1},
+  {q:'Terning – kan du få 7?',a:['Nei','Ja','Av og til','Alltid'],c:0,d:1},
+  {q:'Snitt av 6, 8, 10, 12?',a:['9','8','10','11'],c:0,d:2},
+  {q:'8,5,−2,0,3. Median?',a:['3','5','0','2'],c:0,d:2},
+  {q:'2 terninger. Sum=7?',a:['1/6','1/4','1/8','1/12'],c:0,d:3},
+],
+};
+
+const CATNAMES={mix:'Miks',prosent:'Prosentregning',mult:'Multiplikasjon',tid:'Tidsregning',handel:'Handel & penger',areal:'Areal & mål',hode:'Hoderegning',stat:'Statistikk'};
+const DPTS={easy:1,med:2,hard:3};
+const DLABELS={easy:'🌱 Lett',med:'⚡ Middels',hard:'🔥 Vanskelig'};
+
+let HS=JSON.parse(localStorage.getItem('mt5_hs')||'[]');
+function saveHS(){localStorage.setItem('mt5_hs',JSON.stringify(HS));}
+function refreshHome(){const b=HS[0];document.getElementById('homeHS').textContent=b?b.score.toLocaleString('no')+'p':'–';}
+
+let selD='easy', selC='mix';
+function pickD(d,el){selD=d;document.querySelectorAll('.dcard').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');}
+function pickC(c,el){selC=c;document.querySelectorAll('.ccard').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');}
+
+// ══════════════════════════════════════════════
+//  GAME CONSTANTS
+// ══════════════════════════════════════════════
+const PW=34, PH=52;
+const WATER_H=72;      // water band height at bottom of screen (fixed)
+const PLAT_H=22;
+const PLAT_GAP=110;    // screen-px between platform slots
+
+// Brick colours
+const BF='#c0392b',BD='#922b21',BM='#7b241c',BL='#e74c3c';
+const WF='#555',WD='#3a3a3a',WM='#2c2c2c';
+
+function drawBrick(ctx,x,y,w,h,face,dark,mort,light){
+  ctx.fillStyle=face; ctx.fillRect(x,y,w,h);
+  if(light){ctx.fillStyle=light;ctx.fillRect(x,y,w,3);ctx.fillRect(x,y,3,h);}
+  if(dark){ctx.fillStyle=dark;ctx.fillRect(x,y+h-2,w,2);ctx.fillRect(x+w-2,y,2,h);}
+  if(mort){
+    ctx.fillStyle=mort;
+    ctx.fillRect(x,y+Math.floor(h/2),w,1);
+    const bw=Math.floor(w/3);
+    for(let b=1;b<3;b++) ctx.fillRect(x+b*bw,y,1,Math.floor(h/2));
+    ctx.fillRect(x+Math.floor(w/2),y+Math.floor(h/2),1,Math.ceil(h/2));
+  }
+}
+
+function platW(){
+  if(selD==='easy') return 130+Math.random()*30;
+  if(selD==='med')  return 95+Math.random()*25;
+  return 70+Math.random()*20;
+}
+
+let GS=null, animId=null;
+
+// ══════════════════════════════════════════════
+//  THE KEY INSIGHT:
+//  Everything is in SCREEN SPACE.
+//  - Platforms have a screenY that decreases each frame (scroll up).
+//  - Player.sy is their screen-Y position.
+//  - Player stands on platforms (screen coords).
+//  - Gravity pulls player DOWN (sy increases).
+//  - Scroll also pulls player DOWN (sy increases at scroll rate).
+//  - Jumping gives upward velocity (sy decreases quickly).
+//  - Water fixed at sy = gH - WATER_H.
+//  - Player can never go above CEILING_Y (25% from top).
+//  - Camera snaps DOWN to follow player if player falls below 60% of screen.
+// ══════════════════════════════════════════════
+
+function startGame(){
+  go('sGame');
+  if(animId){cancelAnimationFrame(animId);animId=null;}
+  if(GS?.qtimer) clearInterval(GS.qtimer);
+
+  const gc=document.getElementById('gc');
+  const qp=document.getElementById('qpanel');
+  const panH=qp.offsetHeight+4;
+  const gH=AH-panH;
+  gc.width=AW; gc.height=gH;
+
+  const WATER_TOP=gH-WATER_H;  // fixed screen Y of water surface
+  const CEILING=Math.round(gH*0.25); // player never goes above this screen Y
+
+  // Build platforms: slot 0 near water, higher slots further above (smaller sy)
+  // Platforms SINK each frame (sy increases) – simulating camera moving upward.
+  // Water is fixed at WATER_TOP. Player dies when their platform reaches water.
+  const initCount = Math.ceil(gH / PLAT_GAP) + 3;
+  // Start slot 0 at ~45% from top so player begins in the middle of the screen
+  const startOffset = Math.round(gH * 0.45) + PH;
+  const plats=[];
+  for(let i=0;i<initCount;i++){
+    const sy=gH*0.45+PH - i*PLAT_GAP;
+    const w=platW();
+    let x;
+    if(i===0){x=AW/2-w/2;}
+    else if(i%2===1){x=AW*0.44+Math.random()*(AW*0.36-w);}
+    else{x=AW*0.05+Math.random()*(AW*0.28);}
+    x=Math.max(8,Math.min(AW-w-8,x));
+    plats.push({x,sy,w,slot:i});
+  }
+
+  // Player starts on slot 0, centered
+  const fp=plats[0];
+  GS={
+    ctx:gc.getContext('2d'), gW:AW, gH, panH,
+    WATER_TOP, CEILING,
+
+    // Player screen position
+    psx: fp.x+fp.w/2-PW/2,
+    psy: fp.sy-PH,
+    onGround:true,
+    jumpDir:1,
+    jumpPending:false,
+    isBounceJump:false,
+
+    // Tween jump animation (replaces physics)
+    jumping:false,
+    jumpPhase:0,     // 1=toward wall, 2=toward target
+    jumpT:0,         // elapsed time in phase
+    jumpDur:0,       // duration of phase
+    jumpSX:0, jumpSY:0,   // phase start position
+    jumpEX:0, jumpEY:0,   // phase end position (updated each frame)
+    jumpH:0,              // arc height
+    jumpTargetSlot:-1,    // slot to land on
+
+    plats,
+    curSlot:0,
+    nextSlot:initCount,
+
+    scrollSpeed:12,
+
+    score:0, streak:0, bestStreak:0, correct:0, bonusCount:0, floor:0,
+    used:[], qCount:0,
+    qtimer:null, timerLeft:10, timerMax:10,
+    curQ:null, answering:false, qStart:0,
+    lastTS:0,
+  };
+
+  document.getElementById('hScore').textContent='0';
+  document.getElementById('hStreak').textContent='🔥 0';
+  document.getElementById('hFloor').textContent='Etasje 1';
+  showQ();
+  loop();
+}
+
+// ──────────────────────────────────────────────
+//  TIMER & SPEED
+// ──────────────────────────────────────────────
+function getTimer(){
+  const base=selD==='easy'?10:selD==='med'?7:5;
+  const drop=Math.floor(GS.qCount/3)*1;  // drops every 3rd question
+  const mn=selD==='easy'?4:selD==='med'?3:2;
+  return Math.max(mn,base-drop);
+}
+function getScrollPx(){
+  return Math.min(200, 18+GS.qCount*4);  // increases every single question
+}
+
+// ──────────────────────────────────────────────
+//  QUESTION
+// ──────────────────────────────────────────────
+function pickQ(){
+  const allowed=selD==='easy'?[1]:selD==='med'?[1,2]:[2,3];
+  const pool=Object.values(QB).flat().filter(q=>allowed.includes(q.d));
+  const avail=pool.filter(q=>!GS.used.includes(q.q));
+  if(!avail.length){GS.used=[];return pickQ();}
+  const p=avail[Math.floor(Math.random()*avail.length)];
+  GS.used.push(p.q);
+  const sh=p.a.map((a,i)=>({a,ok:i===p.c})).sort(()=>Math.random()-.5);
+  let cat='mix';
+  for(const[k,arr] of Object.entries(QB)){if(arr.includes(p)){cat=k;break;}}
+  return{q:p.q,ans:sh.map(s=>s.a),ci:sh.findIndex(s=>s.ok),cat,d:p.d};
+}
+
+function showQ(){
+  if(!GS) return;
+  if(GS.qtimer) clearInterval(GS.qtimer);
+  const t=getTimer();
+  GS.timerMax=t; GS.timerLeft=t;
+  GS.answering=true; GS.qStart=Date.now();
+  GS.curQ=pickQ();
+  document.getElementById('qCat').textContent=CATNAMES[GS.curQ.cat]||GS.curQ.cat;
+  document.getElementById('qText').textContent=GS.curQ.q;
+  document.getElementById('qBonus').classList.remove('show');
+  const grid=document.getElementById('aGrid'); grid.innerHTML='';
+  GS.curQ.ans.forEach((a,i)=>{
+    const b=document.createElement('button');
+    b.className='abtn'; b.textContent=a;
+    b.onclick=()=>answer(i,b);
+    grid.appendChild(b);
+  });
+  // Show bonus hint immediately (bonus = answer within first 2 seconds)
+  document.getElementById('qBonus').classList.add('show');
+  updTBar();
+  GS.qtimer=setInterval(()=>{
+    GS.timerLeft-=.1; updTBar();
+    // Hide bonus hint after 2 seconds have passed
+    const elapsed=(Date.now()-GS.qStart)/1000;
+    if(elapsed>2) document.getElementById('qBonus').classList.remove('show');
+    if(GS.timerLeft<=0){clearInterval(GS.qtimer);answer(-1,null);}
+  },100);
+}
+
+function updTBar(){
+  const p=Math.max(0,GS.timerLeft/GS.timerMax*100);
+  const b=document.getElementById('tbar');
+  b.style.width=p+'%';
+  b.style.background=p>60?'linear-gradient(90deg,#1dd1a1,#ffe033)':p>25?'linear-gradient(90deg,#ffe033,#ff8c00)':'linear-gradient(90deg,#ff5050,#b00)';
+}
+
+function answer(idx,btn){
+  if(!GS||!GS.answering) return;
+  GS.answering=false;
+  clearInterval(GS.qtimer);
+  document.querySelectorAll('.abtn').forEach(b=>b.disabled=true);
+  GS.qCount++;
+
+  if(idx===GS.curQ.ci){
+    if(btn) btn.classList.add('ok');
+    GS.streak++; GS.correct++;
+    if(GS.streak>GS.bestStreak) GS.bestStreak=GS.streak;
+    const elapsed=(Date.now()-GS.qStart)/1000;
+    const isBonus=elapsed<=2;
+    let pts=DPTS[selD];
+    if(isBonus){pts=Math.round(pts*1.5);GS.bonusCount++;}
+    if(GS.streak>2) pts+=Math.floor(GS.streak*.3);
+    GS.score+=pts;
+    GS.jumpPending=true;
+    GS.isBounceJump=isBonus;
+    if(isBonus){sfxBonus();}  // bonus label spawns after wall bounce
+    else{sfxCorrect();spawnLabel(GS.streak>1?streakTxt(GS.streak):'+'+pts,'#1dd1a1',false);}
+    document.getElementById('hStreak').textContent='🔥 '+GS.streak;
+    document.getElementById('hScore').textContent=GS.score.toLocaleString('no');
+    setTimeout(showQ,isBonus?900:700);
+  } else {
+    // WRONG / TIMEOUT: character stays – screen jumps (platforms sink extra)
+    document.querySelectorAll('.abtn')[GS.curQ.ci]?.classList.add('ok');
+    if(btn) btn.classList.add('no');
+    GS.streak=0;
+    document.getElementById('hStreak').textContent='🔥 0';
+    sfxWrong();
+    spawnLabel(idx===-1?'⏱ Tid ute!':'✗ Feil!','#ff5050',false);
+    // Penalty: instant screen jump (platforms sink by ~3 seconds worth)
+    const penaltyPx = getScrollPx() * 3;
+    applyScrollPenalty(penaltyPx);
+    setTimeout(showQ, 900);
+  }
+}
+
+function applyScrollPenalty(px){
+  sfxPenalty();
+  // Accelerate sinking: all platforms sink extra pixels instantly
+  GS.plats.forEach(p=>p.sy+=px);
+  // Flash effect
+  const fl=document.createElement('div');
+  fl.className='bounceflash';
+  fl.style.cssText=`left:0;top:0;right:0;bottom:${GS.panH}px;background:rgba(255,50,50,.3);`;
+  document.getElementById('sGame').appendChild(fl);
+  setTimeout(()=>fl.remove(),600);
+}
+
+function streakTxt(s){
+  const m=['','','🔥 x2!','⚡ x3!','💥 x4!','🌟 x5!','🚀 COMBO!','👑 ILDSTREK!'];
+  return m[Math.min(s,m.length-1)]||(s+'× COMBO!');
+}
+
+function spawnParticles(x,y){
+  const sGame=document.getElementById('sGame');
+  const colors=['#ffe033','#ff8c00','#ff4444','#1dd1a1','#c084fc','#fff'];
+  for(let i=0;i<18;i++){
+    const p=document.createElement('div');
+    const angle=Math.random()*Math.PI*2;
+    const dist=40+Math.random()*80;
+    const tx=Math.cos(angle)*dist, ty=Math.sin(angle)*dist;
+    const size=4+Math.random()*6;
+    p.style.cssText=`position:absolute;width:${size}px;height:${size}px;border-radius:50%;
+      background:${colors[i%colors.length]};left:${x}px;top:${y}px;pointer-events:none;z-index:65;
+      transition:transform .6s ease-out,opacity .6s ease-out;`;
+    sGame.appendChild(p);
+    requestAnimationFrame(()=>{requestAnimationFrame(()=>{
+      p.style.transform=`translate(${tx}px,${ty}px) scale(0)`;
+      p.style.opacity='0';
+    });});
+    setTimeout(()=>p.remove(),650);
+  }
+}
+
+function spawnLabel(txt,col,big){
+  const el=document.createElement('div');
+  el.className='floatlbl'; el.textContent=txt;
+  el.style.color=col; el.style.fontSize=big?'32px':'24px';
+  el.style.fontWeight='900';
+  el.style.textShadow=`0 0 24px ${col}, 0 0 8px #fff`;
+  el.style.left=(AW/2-130)+'px'; el.style.top=(GS.gH/2-150)+'px';
+  document.getElementById('sGame').appendChild(el);
+  setTimeout(()=>el.remove(),960);
+  if(big){
+    // Particles burst
+    spawnParticles(AW/2, GS.gH/2-80);
+    const fl=document.createElement('div');
+    fl.className='bounceflash';
+    fl.style.cssText=`left:0;top:0;right:0;bottom:${GS.panH}px;background:rgba(255,200,0,.22);`;
+    document.getElementById('sGame').appendChild(fl);
+    setTimeout(()=>fl.remove(),650);
+  }
+}
+
+// Lives removed – game ends when water reaches player
+
+// ──────────────────────────────────────────────
+//  JUMP
+// ──────────────────────────────────────────────
+function doJump(isBonus){
+  const tSlot=GS.curSlot+(isBonus?2:1);
+  const tPlat=GS.plats.find(p=>p.slot===tSlot);
+  if(!tPlat) return;
+
+  GS.onGround=false;
+  GS.jumping=true;
+  GS.jumpTargetSlot=tSlot;
+  GS.jumpDir*=-1;
+  GS.jumpT=0;
+  GS.jumpSX=GS.psx;
+  GS.jumpSY=GS.psy;
+
+  if(isBonus){
+    // Phase 1: fly to wall opposite from target
+    GS.jumpPhase=1;
+    const targetOnLeft=tPlat.x+tPlat.w/2 < AW/2;
+    GS.jumpEX=targetOnLeft ? AW-PW-4 : 4;
+    GS.jumpEY=GS.psy-60;   // slightly up while going to wall
+    GS.jumpDur=0.20;
+    GS.jumpH=25;
+    sfxBounce();
+  } else {
+    // Straight tween to target
+    GS.jumpPhase=2;
+    GS.jumpEX=tPlat.x+tPlat.w/2-PW/2;
+    GS.jumpEY=tPlat.sy-PH;
+    GS.jumpDur=0.40;
+    GS.jumpH=PLAT_GAP*0.65;
+  }
+}
+
+// ──────────────────────────────────────────────
+//  GAME LOOP
+// ──────────────────────────────────────────────
+function loop(ts=0){
+  if(!GS) return;
+  const dt=Math.min((ts-GS.lastTS)/1e3,.05);
+  GS.lastTS=ts;
+
+  const spd=getScrollPx();
+  GS.scrollSpeed=spd;
+
+  // ── SCROLL: platforms SINK down (sy increases) = camera moving upward ──
+  // Player locked to platform sinks with it. Jumping to higher platform
+  // (smaller sy) is the only way to stay above the water at WATER_TOP.
+  GS.plats.forEach(p=>p.sy += spd*dt);
+
+  // HUD
+  document.getElementById('spdbadge').textContent=DLABELS[selD]+' · Etasje '+(GS.curSlot+1)+' · ⏱'+getTimer()+'s';
+  document.getElementById('hFloor').textContent='Etasje '+(GS.curSlot+1);
+
+  // ── JUMP TRIGGER ──
+  if(GS.jumpPending && GS.onGround){
+    const bonus=GS.isBounceJump;
+    GS.jumpPending=false; GS.isBounceJump=false;
+    doJump(bonus);
+  }
+
+  // ── TWEEN JUMP ANIMATION ──
+  if(GS.jumping){
+    GS.jumpT=Math.min(GS.jumpT+dt, GS.jumpDur);
+    const t=GS.jumpDur>0 ? GS.jumpT/GS.jumpDur : 1;
+
+    // Phase 2: track sinking target platform in real-time
+    if(GS.jumpPhase===2){
+      const tp=GS.plats.find(p=>p.slot===GS.jumpTargetSlot);
+      if(tp){ GS.jumpEX=tp.x+tp.w/2-PW/2; GS.jumpEY=tp.sy-PH; }
+    }
+
+    // Interpolate position along parabolic arc
+    GS.psx=GS.jumpSX+(GS.jumpEX-GS.jumpSX)*t;
+    const linY=GS.jumpSY+(GS.jumpEY-GS.jumpSY)*t;
+    GS.psy=linY - GS.jumpH*4*t*(1-t);
+
+    if(GS.jumpT>=GS.jumpDur){
+      GS.psx=GS.jumpEX; GS.psy=GS.jumpEY;
+
+      if(GS.jumpPhase===1){
+        // Hit wall – start phase 2 toward target
+        GS.jumpPhase=2;
+        GS.jumpT=0;
+        GS.jumpSX=GS.psx; GS.jumpSY=GS.psy;
+        const tp=GS.plats.find(p=>p.slot===GS.jumpTargetSlot);
+        if(tp){
+          GS.jumpEX=tp.x+tp.w/2-PW/2; GS.jumpEY=tp.sy-PH;
+          GS.jumpDur=0.32; GS.jumpH=70;
+        } else { GS.jumping=false; GS.onGround=true; }
+        sfxBonus();
+        spawnLabel('⚡ BONUS ×1.5!','#ffe033',true);
+      } else {
+        // Landed on target
+        GS.jumping=false; GS.onGround=true;
+        const tp=GS.plats.find(p=>p.slot===GS.jumpTargetSlot);
+        if(tp){
+          GS.psy=tp.sy-PH;
+          GS.curSlot=tp.slot;
+          GS.floor=Math.max(GS.floor, tp.slot);
+        }
+      }
+    }
+  } else {
+    // On ground: lock player to current platform so they sink with it
+    const curPlat=GS.plats.find(p=>p.slot===GS.curSlot);
+    if(curPlat){
+      GS.psy=curPlat.sy-PH;
+      GS.psx=Math.max(curPlat.x, Math.min(curPlat.x+curPlat.w-PW, GS.psx));
+    }
+  }
+
+  // Safety ceiling
+  if(GS.psy < GS.CEILING){
+    const excess=GS.CEILING-GS.psy;
+    GS.plats.forEach(p=>p.sy+=excess);
+    GS.psy=GS.CEILING;
+  }
+
+  // ── GENERATE NEW PLATFORMS above the current highest ──
+  while(GS.nextSlot <= GS.curSlot+20){
+    const slot=GS.nextSlot;
+    if(!GS.plats.length) break;
+    const topPlat=GS.plats.reduce((a,b)=>a.sy<b.sy?a:b);
+    const sy=topPlat.sy-PLAT_GAP;
+    const w=platW();
+    let x;
+    if(slot%2===1) x=AW*0.44+Math.random()*(AW*0.36-w);
+    else           x=AW*0.05+Math.random()*(AW*0.28);
+    x=Math.max(8,Math.min(AW-w-8,x));
+    GS.plats.push({x,sy,w,slot});
+    GS.nextSlot++;
+  }
+  // Remove platforms that have sunk well below water
+  GS.plats=GS.plats.filter(p=>p.sy < GS.WATER_TOP+150);
+
+  // ── DEATH: player sinks into water = game over ──
+  if(GS.psy+PH>=GS.WATER_TOP){
+    sfxSplash(); endGame(); return;
+  }
+
+  draw();
+  animId=requestAnimationFrame(loop);
+}
+
+// ──────────────────────────────────────────────
+//  DRAW  (all in screen coordinates)
+// ──────────────────────────────────────────────
+function draw(){
+  const ctx=GS.ctx;
+  ctx.clearRect(0,0,GS.gW,GS.gH);
+
+  // Background: scrolling grey brick wall
+  // Use platform scroll to drive brick offset
+  const topPlat=GS.plats[0];
+  const brickOff=((topPlat.sy % 32)+32)%32;
+  const TSIZE=32;
+  for(let row=-1;row<Math.ceil(GS.gH/TSIZE)+2;row++){
+    const ty=row*TSIZE+brickOff;
+    const even=Math.floor(row+Math.floor(topPlat.sy/TSIZE))%2===0;
+    const xoff=even?0:TSIZE/2;
+    for(let col=-1;col<Math.ceil(AW/TSIZE)+2;col++){
+      drawBrick(ctx,col*TSIZE+xoff,ty,TSIZE-1,Math.floor(TSIZE/2)-1,WF,WD,WM,null);
+    }
+  }
+
+  // Platforms (red brick)
+  GS.plats.forEach(p=>{
+    if(p.sy<-50||p.sy>GS.gH+50) return;
+    const isTgt=p.slot===GS.targetSlot&&!GS.onGround;
+    const isCur=p.slot===GS.curSlot;
+    if(isTgt){
+      ctx.strokeStyle='rgba(255,224,51,.85)';ctx.lineWidth=2.5;ctx.setLineDash([4,3]);
+      ctx.strokeRect(p.x-2,p.sy-2,p.w+4,PLAT_H+4);ctx.setLineDash([]);
+    }
+    drawBrick(ctx,p.x,p.sy,p.w,PLAT_H,BF,BD,BM,BL);
+    if(isCur&&GS.onGround){
+      ctx.fillStyle='rgba(255,255,200,.9)';
+      ctx.font='bold 13px sans-serif';ctx.textAlign='center';
+      ctx.fillText(GS.jumpDir===1?'→':'←',p.x+p.w/2,p.sy-5);
+    }
+  });
+
+  // Player
+  const px=GS.psx, py=GS.psy;
+  const inAir=GS.jumping, goR=(GS.jumpEX > GS.jumpSX);
+  if(!inAir){
+    ctx.beginPath();ctx.ellipse(px+PW/2,py+PH+4,PW*.42,5,0,0,Math.PI*2);
+    ctx.fillStyle='rgba(0,0,0,.28)';ctx.fill();
+  }
+  ctx.fillStyle='#2980b9';
+  ctx.beginPath();ctx.roundRect(px+3,py+18,PW-6,PH-20,5);ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(px+PW/2,py+18);ctx.lineTo(px+PW/2,py+PH-4);ctx.stroke();
+  ctx.fillStyle='#fde3c0';
+  ctx.beginPath();ctx.arc(px+PW/2,py+13,13,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#c0392b';
+  ctx.beginPath();ctx.roundRect(px+2,py+1,PW-4,13,5);ctx.fill();
+  ctx.fillStyle='#e74c3c';
+  ctx.beginPath();ctx.roundRect(px+2,py+11,PW-4,4,2);ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,.95)';
+  ctx.beginPath();ctx.arc(px+PW/2,py+0,5,0,Math.PI*2);ctx.fill();
+  const eo=goR?2:-2;
+  ctx.fillStyle='#1a252f';
+  ctx.beginPath();ctx.arc(px+PW/2-3+eo,py+14,2.4,0,Math.PI*2);ctx.arc(px+PW/2+5+eo,py+14,2.4,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='white';
+  ctx.beginPath();ctx.arc(px+PW/2-2+eo,py+13,1,0,Math.PI*2);ctx.arc(px+PW/2+6+eo,py+13,1,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#8b4513';ctx.lineWidth=1.5;ctx.beginPath();
+  if(inAir&&GS.pvy<-400){ctx.arc(px+PW/2+eo*.3,py+19,3.5,0,Math.PI);}
+  else{ctx.arc(px+PW/2,py+18,2.5,Math.PI*.1,Math.PI*.9);}
+  ctx.stroke();
+  ctx.fillStyle='#1a6da8';
+  if(inAir){ctx.beginPath();ctx.roundRect(px-6,py+19,8,13,4);ctx.fill();ctx.beginPath();ctx.roundRect(px+PW-2,py+19,8,13,4);ctx.fill();}
+  else{ctx.beginPath();ctx.roundRect(px-5,py+22,7,15,3);ctx.fill();ctx.beginPath();ctx.roundRect(px+PW-2,py+22,7,15,3);ctx.fill();}
+  const la=GS.onGround?Math.sin(Date.now()/120)*5:0;
+  ctx.fillStyle='#1c2833';
+  ctx.fillRect(px+4,py+PH-12+la,9,14);ctx.fillRect(px+PW-13,py+PH-12-la,9,14);
+  ctx.fillStyle='#0d0d0d';
+  ctx.fillRect(px+2,py+PH+la-1,13,5);ctx.fillRect(px+PW-15,py+PH-la-1,13,5);
+  ctx.strokeStyle='#e74c3c';ctx.lineWidth=3;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(px+PW/2-8,py+23);ctx.quadraticCurveTo(px+PW/2,py+30,px+PW/2+10,py+24);ctx.stroke();
+
+  // ── WATER – always fixed at bottom ──
+  const waterY=GS.WATER_TOP;
+  const now=Date.now();
+  const wt=now/400;
+
+  // Danger glow above water (gets stronger as player is closer)
+  const playerDist = Math.max(0, waterY - (GS.psy+PH));
+  const danger = Math.max(0, 1 - playerDist/120);
+  if(danger>0){
+    const dg=ctx.createLinearGradient(0,waterY-90,0,waterY);
+    dg.addColorStop(0,'rgba(0,80,255,0)');
+    dg.addColorStop(1,`rgba(0,160,255,${0.25+danger*0.35})`);
+    ctx.fillStyle=dg; ctx.fillRect(0,waterY-90,GS.gW,90);
+  }
+
+  // Main water body
+  const wg=ctx.createLinearGradient(0,waterY,0,GS.gH);
+  wg.addColorStop(0,'rgba(0,100,230,.97)');
+  wg.addColorStop(0.4,'rgba(0,50,160,.99)');
+  wg.addColorStop(1,'rgba(0,10,80,1)');
+  ctx.fillStyle=wg; ctx.fillRect(0,waterY,GS.gW,GS.gH-waterY);
+
+  // Wave surface (two layers)
+  ctx.fillStyle='rgba(60,160,255,.6)';
+  ctx.beginPath(); ctx.moveTo(0,waterY);
+  for(let wx=0;wx<=GS.gW;wx+=2){
+    ctx.lineTo(wx, waterY+Math.sin(wx/18+wt)*5+Math.sin(wx/9-wt*1.2)*2.5);
+  }
+  ctx.lineTo(GS.gW,GS.gH); ctx.lineTo(0,GS.gH); ctx.closePath(); ctx.fill();
+
+  ctx.fillStyle='rgba(120,200,255,.35)';
+  ctx.beginPath(); ctx.moveTo(0,waterY+4);
+  for(let wx=0;wx<=GS.gW;wx+=2){
+    ctx.lineTo(wx, waterY+4+Math.sin(wx/14-wt*0.8)*3+Math.sin(wx/7+wt)*1.5);
+  }
+  ctx.lineTo(GS.gW,GS.gH); ctx.lineTo(0,GS.gH); ctx.closePath(); ctx.fill();
+
+  // Ice floes (animated)
+  const it=now/600;
+  ctx.fillStyle='rgba(210,245,255,.88)';
+  [[10,52],[80,34],[150,60],[230,40],[310,48],[375,32],[420,22]].forEach(([ix,iw])=>{
+    const io=Math.sin(it+ix*.05)*6;
+    ctx.beginPath(); ctx.roundRect(ix+io, waterY-7, iw, 13, 5); ctx.fill();
+    // shine on ice
+    ctx.fillStyle='rgba(255,255,255,.5)';
+    ctx.beginPath(); ctx.roundRect(ix+io+3, waterY-6, iw*0.4, 4, 2); ctx.fill();
+    ctx.fillStyle='rgba(210,245,255,.88)';
+  });
+
+  // Danger text – pulses when player is close
+  const pulse = 0.7 + Math.sin(now/200)*0.3;
+  ctx.globalAlpha = danger > 0.3 ? pulse : 0.6;
+  ctx.fillStyle='rgba(180,235,255,1)';
+  ctx.font=`bold ${danger>0.5?13:11}px Nunito`;
+  ctx.textAlign='center';
+  ctx.fillText('❄️  ISKALDT VANN  ❄️', GS.gW/2, waterY-12);
+  ctx.globalAlpha=1;
+}
+
+// ──────────────────────────────────────────────
+//  END GAME
+// ──────────────────────────────────────────────
+function endGame(){
+  if(animId){cancelAnimationFrame(animId);animId=null;}
+  if(GS?.qtimer) clearInterval(GS.qtimer);
+  const gs=GS; GS=null;
+  const entry={score:gs.score,floor:gs.floor+1,correct:gs.correct,streak:gs.bestStreak,bonus:gs.bonusCount,diff:selD,date:Date.now()};
+  HS.push(entry);HS.sort((a,b)=>b.score-a.score);HS=HS.slice(0,20);saveHS();
+  document.getElementById('goScore').textContent=gs.score.toLocaleString('no');
+  document.getElementById('goFloor').textContent=gs.floor+1;
+  document.getElementById('goCorrect').textContent=gs.correct;
+  document.getElementById('goBest').textContent=gs.bestStreak;
+  document.getElementById('goBonus').textContent=gs.bonusCount;
+  const rec=document.getElementById('goRec');
+  if(HS[0]?.score===gs.score&&gs.score>0)rec.classList.remove('hidden');else rec.classList.add('hidden');
+  go('sOver');
+}
+
+// ══════════════════════════════════════════════
+//  TRAINING
+// ══════════════════════════════════════════════
+let TP=null;
+function startTraining(){
+  go('sTP');TP={cat:selC,streak:0,correct:0,wrong:0,used:[]};
+  document.getElementById('tpCat').textContent=CATNAMES[selC]||selC;nextTP();
+}
+function nextTP(){
+  if(!TP)return;
+  const pool=TP.cat==='mix'?Object.values(QB).flat():QB[TP.cat]||[];
+  const avail=pool.filter(q=>!TP.used.includes(q.q));
+  if(!avail.length){TP.used=[];nextTP();return;}
+  const p=avail[Math.floor(Math.random()*avail.length)];
+  TP.used.push(p.q);
+  const sh=p.a.map((a,i)=>({a,ok:i===p.c})).sort(()=>Math.random()-.5);
+  TP.curQ={q:p.q,ans:sh.map(s=>s.a),ci:sh.findIndex(s=>s.ok)};
+  document.getElementById('tpQ').textContent=p.q;
+  const grid=document.getElementById('tpGrid');grid.innerHTML='';
+  TP.curQ.ans.forEach((a,i)=>{
+    const b=document.createElement('button');b.className='abtn';
+    b.style.cssText='font-size:16px;padding:15px 10px;';b.textContent=a;
+    b.onclick=()=>tpAnswer(i,b);grid.appendChild(b);
+  });
+}
+function tpAnswer(idx,btn){
+  if(!TP||!TP.curQ)return;
+  document.querySelectorAll('#tpGrid .abtn').forEach(b=>b.disabled=true);
+  if(idx===TP.curQ.ci){btn.classList.add('ok');TP.streak++;TP.correct++;sfxCorrect();}
+  else{btn.classList.add('no');document.querySelectorAll('#tpGrid .abtn')[TP.curQ.ci]?.classList.add('ok');TP.streak=0;TP.wrong++;sfxWrong();}
+  document.getElementById('tpSt').textContent='🔥 Streak: '+TP.streak;
+  document.getElementById('tpProg').textContent=`${TP.correct} riktige · ${TP.wrong} feil`;
+  setTimeout(nextTP,880);
+}
+
+// ══════════════════════════════════════════════
+//  LEADERBOARD
+// ══════════════════════════════════════════════
+function renderLB(){
+  const el=document.getElementById('lbList');
+  if(!HS.length){el.innerHTML='<div class="lb-empty">Ingen rekorder ennå!<br>Spill ditt første spill 🎮</div>';return;}
+  const medals=['🥇','🥈','🥉'];
+  const dl={easy:'🌱 Lett',med:'⚡ Middels',hard:'🔥 Vanskelig'};
+  el.innerHTML=HS.map((e,i)=>`
+    <div class="lb-row">
+      <div class="lb-rank">${medals[i]||i+1}</div>
+      <div class="lb-info">
+        <div class="lb-score">${e.score.toLocaleString('no')} poeng</div>
+        <div class="lb-sub">${dl[e.diff]||''} · Etasje ${e.floor} · ${e.correct} riktige · ${e.bonus} bonus</div>
+      </div>
+    </div>`).join('');
+}
+
+go('sHome');
+</script>
+</body>
+</html>
