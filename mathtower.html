@@ -498,11 +498,19 @@ function startGame(){
 // ──────────────────────────────────────────────
 //  TIMER & SPEED
 // ──────────────────────────────────────────────
-function getTimer(){
+function getTimer(questionText){
   const base=selD==='easy'?10:selD==='med'?7:5;
   const drop=Math.floor(GS.qCount/3)*1;  // drops every 3rd question
   const mn=selD==='easy'?4:selD==='med'?3:2;
-  return Math.max(mn,base-drop);
+  let time=Math.max(mn,base-drop);
+
+  // Add 1.5 seconds if question has more than 4 words
+  if(questionText){
+    const wordCount=questionText.trim().split(/\s+/).length;
+    if(wordCount>4) time+=1.5;
+  }
+
+  return time;
 }
 function getScrollPx(){
   return Math.min(200, 18+GS.qCount*4);  // increases every single question
@@ -527,10 +535,10 @@ function pickQ(){
 function showQ(){
   if(!GS) return;
   if(GS.qtimer) clearInterval(GS.qtimer);
-  const t=getTimer();
-  GS.timerMax=t; GS.timerLeft=t;
   GS.answering=true; GS.qStart=Date.now();
   GS.curQ=pickQ();
+  const t=getTimer(GS.curQ.q);
+  GS.timerMax=t; GS.timerLeft=t;
   document.getElementById('qCat').textContent=CATNAMES[GS.curQ.cat]||GS.curQ.cat;
   document.getElementById('qText').textContent=GS.curQ.q;
   document.getElementById('qBonus').classList.remove('show');
