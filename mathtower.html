@@ -7,11 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{width:100%;height:100%;overflow:hidden;background:#0a1628;font-family:'Nunito',sans-serif;color:#fff;}
+html,body{width:100%;height:100%;overflow:hidden;background:#0a1628;font-family:'Nunito',sans-serif;color:#fff;background-image:radial-gradient(circle at 20% 30%, rgba(100,220,255,.15) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(150,230,255,.12) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(100,200,255,.1) 0%, transparent 50%), repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(100,180,255,.06) 35px, rgba(100,180,255,.06) 70px);}
 #app{width:100%;max-width:430px;height:100%;margin:0 auto;position:relative;overflow:hidden;}
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;transition:opacity .25s;}
 .screen.off{opacity:0;pointer-events:none;}
-#sHome{background:linear-gradient(180deg,#051929 0%,#0d2a47 60%,#051929 100%);}
+#sHome{background:linear-gradient(180deg,#051929 0%,#0d2a47 60%,#051929 100%),radial-gradient(circle at 15% 20%, rgba(120,240,255,.2) 0%, transparent 50%), radial-gradient(circle at 85% 80%, rgba(100,220,255,.15) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(80,200,255,.1) 0%, transparent 50%), repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(100,200,255,.08) 40px, rgba(100,200,255,.08) 80px);background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, auto;}
 .logo{font-family:'Fredoka One',cursive;font-size:62px;line-height:1;background:linear-gradient(135deg,#ffe033 0%,#ff8c00 50%,#ff4444 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 30px rgba(255,224,51,.5));}
 .logo-sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:4px;}
 .hero{font-size:74px;margin:12px 0;animation:bob 2s ease-in-out infinite;}
@@ -88,7 +88,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a1628;font-family:
 @keyframes fup{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-90px) scale(1.5)}}
 .bounceflash{position:absolute;pointer-events:none;z-index:58;animation:flash .6s forwards;}
 @keyframes flash{0%{opacity:.9}100%{opacity:0;transform:scale(1.08)}}
-#sOver{z-index:30;background:linear-gradient(180deg,rgba(10,22,40,.98),rgba(15,80,150,.95));gap:11px;}
+#sOver{z-index:30;background:linear-gradient(180deg,rgba(10,22,40,.98),rgba(15,80,150,.95)),radial-gradient(circle at 25% 30%, rgba(150,255,255,.18) 0%, transparent 50%), radial-gradient(circle at 75% 70%, rgba(100,230,255,.14) 0%, transparent 50%), repeating-linear-gradient(45deg, transparent, transparent 45px, rgba(120,200,255,.07) 45px, rgba(120,200,255,.07) 90px);background-size: 100% 100%, 100% 100%, 100% 100%, auto;gap:11px;}
 .go-ttl{font-family:'Fredoka One',cursive;font-size:50px;background:linear-gradient(135deg,#ff5050,#ffe033);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .go-big{font-family:'Fredoka One',cursive;font-size:76px;color:#ffe033;line-height:1;}
 .go-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.32);}
@@ -193,7 +193,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a1628;font-family:
 
 <!-- GAME OVER -->
 <div class="screen off" id="sOver">
-  <div class="go-ttl">❄️ Frosset!</div>
+  <div class="go-ttl">❄️ IcyMath</div>
   <div style="text-align:center"><div class="go-big" id="goScore">0</div><div class="go-lbl">Poeng</div></div>
   <div class="go-rec hidden" id="goRec">🏆 NY REKORD!</div>
   <div class="go-stats">
