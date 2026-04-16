@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>MathTower</title>
+<title>IcyMath</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{width:100%;height:100%;overflow:hidden;background:#1a1a1a;font-family:'Nunito',sans-serif;color:#fff;}
+html,body{width:100%;height:100%;overflow:hidden;background:#0a1628;font-family:'Nunito',sans-serif;color:#fff;}
 #app{width:100%;max-width:430px;height:100%;margin:0 auto;position:relative;overflow:hidden;}
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;transition:opacity .25s;}
 .screen.off{opacity:0;pointer-events:none;}
-#sHome{background:linear-gradient(180deg,#0d0d0d 0%,#1a1208 60%,#0d0d0d 100%);}
+#sHome{background:linear-gradient(180deg,#051929 0%,#0d2a47 60%,#051929 100%);}
 .logo{font-family:'Fredoka One',cursive;font-size:62px;line-height:1;background:linear-gradient(135deg,#ffe033 0%,#ff8c00 50%,#ff4444 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 30px rgba(255,224,51,.5));}
 .logo-sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:4px;}
 .hero{font-size:74px;margin:12px 0;animation:bob 2s ease-in-out infinite;}
@@ -30,7 +30,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#1a1a1a;font-family:
 .hs-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);}
 .hs-val{font-family:'Fredoka One',cursive;font-size:28px;color:#ffe033;}
 .btn-sm{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:10px 24px;font-size:14px;font-weight:700;font-family:'Nunito',sans-serif;color:rgba(255,255,255,.7);cursor:pointer;transition:all .13s;margin-top:8px;}
-#sDiff{gap:12px;padding:24px 20px;background:linear-gradient(180deg,#0d0d0d,#1a1208,#0d0d0d);}
+#sDiff{gap:12px;padding:24px 20px;background:linear-gradient(180deg,#051929,#0d2a47,#051929);}
 .sh-title{font-family:'Fredoka One',cursive;font-size:30px;color:#ffe033;}
 .sh-sub{font-size:13px;color:rgba(255,255,255,.36);margin-bottom:4px;}
 .dlist{display:flex;flex-direction:column;gap:10px;width:100%;max-width:360px;}
@@ -49,7 +49,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#1a1a1a;font-family:
 .btn-back{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:50px;padding:12px 26px;font-size:15px;font-weight:700;font-family:'Nunito',sans-serif;color:rgba(255,255,255,.75);cursor:pointer;transition:all .13s;}
 .btn-go{background:linear-gradient(135deg,#ffe033,#ff8c00);color:#1a0800;border:none;border-radius:50px;padding:14px 40px;font-size:20px;font-weight:900;font-family:'Nunito',sans-serif;cursor:pointer;transition:all .13s;box-shadow:0 6px 24px rgba(255,200,0,.4);}
 .btn-go:hover{transform:translateY(-2px);}
-#sTrain{gap:9px;padding:20px 18px;background:linear-gradient(180deg,#0d0d0d,#081a10,#0d0d0d);justify-content:flex-start;padding-top:44px;overflow-y:auto;}
+#sTrain{gap:9px;padding:20px 18px;background:linear-gradient(180deg,#051929,#0a1f2e,#051929);justify-content:flex-start;padding-top:44px;overflow-y:auto;}
 .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%;max-width:380px;}
 .ccard{background:rgba(255,255,255,.06);border:2px solid transparent;border-radius:15px;padding:15px 11px;cursor:pointer;text-align:center;transition:all .14s;}
 .ccard:hover{background:rgba(255,255,255,.1);transform:translateY(-2px);}
@@ -67,7 +67,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#1a1a1a;font-family:
 .hstreak{font-family:'Fredoka One',cursive;font-size:17px;color:#1dd1a1;}
 .hfloor{font-family:'Fredoka One',cursive;font-size:13px;color:#c084fc;margin-top:1px;}
 #spdbadge{position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:4px 13px;font-size:10px;letter-spacing:1px;z-index:25;pointer-events:none;white-space:nowrap;}
-#qpanel{position:absolute;bottom:0;left:0;right:0;background:rgba(10,8,4,.97);border-top:2px solid rgba(255,150,0,.25);padding:11px 13px 16px;z-index:20;}
+#qpanel{position:absolute;bottom:0;left:0;right:0;background:rgba(10,40,80,.97);border-top:2px solid rgba(100,200,255,.4);padding:11px 13px 16px;z-index:20;}
 .qptop{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
 .qcat{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);}
 .qbonus{font-size:11px;font-weight:800;color:#ffe033;background:rgba(255,200,0,.15);padding:3px 10px;border-radius:20px;display:none;}
@@ -88,7 +88,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#1a1a1a;font-family:
 @keyframes fup{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-90px) scale(1.5)}}
 .bounceflash{position:absolute;pointer-events:none;z-index:58;animation:flash .6s forwards;}
 @keyframes flash{0%{opacity:.9}100%{opacity:0;transform:scale(1.08)}}
-#sOver{z-index:30;background:rgba(5,3,1,.97);gap:11px;}
+#sOver{z-index:30;background:linear-gradient(180deg,rgba(10,22,40,.98),rgba(15,80,150,.95));gap:11px;}
 .go-ttl{font-family:'Fredoka One',cursive;font-size:50px;background:linear-gradient(135deg,#ff5050,#ffe033);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .go-big{font-family:'Fredoka One',cursive;font-size:76px;color:#ffe033;line-height:1;}
 .go-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.32);}
@@ -99,13 +99,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#1a1a1a;font-family:
 .go-sv{font-family:'Fredoka One',cursive;font-size:24px;}
 .go-sl{font-size:9px;color:rgba(255,255,255,.36);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
 .go-btns{display:flex;flex-direction:column;align-items:center;gap:9px;width:100%;max-width:270px;}
-#sTP{background:linear-gradient(180deg,#0d0d0d,#081a10);gap:16px;padding:28px 20px;}
+#sTP{background:linear-gradient(180deg,#051929,#0a1f2e);gap:16px;padding:28px 20px;}
 .tp-cat{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);}
 .tp-st{font-family:'Fredoka One',cursive;font-size:19px;color:#00d2d3;}
 .tp-q{font-size:26px;font-weight:800;text-align:center;line-height:1.3;max-width:340px;}
 .tp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:360px;}
 .tp-prog{font-size:13px;color:rgba(255,255,255,.35);}
-#sLB{background:linear-gradient(180deg,#0d0d0d,#1a1208,#0d0d0d);gap:11px;padding:20px;justify-content:flex-start;padding-top:44px;overflow-y:auto;}
+#sLB{background:linear-gradient(180deg,#051929,#0d2a47,#051929);gap:11px;padding:20px;justify-content:flex-start;padding-top:44px;overflow-y:auto;}
 .lb-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:13px;background:rgba(255,255,255,.05);margin-bottom:7px;}
 .lb-rank{font-family:'Fredoka One',cursive;font-size:20px;width:28px;text-align:center;}
 .lb-info{flex:1;}
@@ -120,7 +120,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#1a1a1a;font-family:
 
 <!-- HOME -->
 <div class="screen" id="sHome">
-  <div style="text-align:center"><div class="logo">MathTower</div><div class="logo-sub">Klatr høyere · Regn raskere</div></div>
+  <div style="text-align:center"><div class="logo">IcyMath</div><div class="logo-sub">Klatr høyere · Regn raskere</div></div>
   <div class="hero">🧗</div>
   <div class="home-btns">
     <button class="hbtn hb-play" onclick="go('sDiff')"><span class="ico">🏆</span><span class="lbl">Spill nå</span><span class="arr">›</span></button>
@@ -193,7 +193,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#1a1a1a;font-family:
 
 <!-- GAME OVER -->
 <div class="screen off" id="sOver">
-  <div class="go-ttl">Game Over!</div>
+  <div class="go-ttl">❄️ Frosset!</div>
   <div style="text-align:center"><div class="go-big" id="goScore">0</div><div class="go-lbl">Poeng</div></div>
   <div class="go-rec hidden" id="goRec">🏆 NY REKORD!</div>
   <div class="go-stats">
@@ -599,7 +599,7 @@ function answer(idx,btn){
     GS.streak=0;
     document.getElementById('hStreak').textContent='🔥 0';
     sfxWrong();
-    spawnLabel(idx===-1?'⏱ Tid ute!':'✗ Feil!','#ff5050',false);
+    spawnLabel(idx===-1?'❄️ I ISVANNET!':'❄️ I ISVANNET!','#00d4ff',false);
     // Penalty: instant screen jump (platforms sink by ~3 seconds worth)
     const penaltyPx = getScrollPx() * 3;
     applyScrollPenalty(penaltyPx);
