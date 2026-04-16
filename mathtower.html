@@ -397,6 +397,22 @@ function drawBrick(ctx,x,y,w,h,face,dark,mort,light){
   }
 }
 
+function drawIceCube(ctx,x,y,w,h){
+  // 3D ice cube with gradient and glow effect
+  const grad=ctx.createLinearGradient(x,y,x,y+h);
+  grad.addColorStop(0,'rgba(200,240,255,.9)');
+  grad.addColorStop(1,'rgba(150,220,255,.8)');
+  ctx.fillStyle=grad;
+  ctx.fillRect(x,y,w,h);
+  // Glow
+  ctx.shadowColor='rgba(100,200,255,.6)';ctx.shadowBlur=8;
+  ctx.strokeStyle='rgba(150,230,255,.7)';ctx.lineWidth=2;
+  ctx.strokeRect(x,y,w,h);ctx.shadowColor='transparent';
+  // Frost scratches
+  ctx.strokeStyle='rgba(255,255,255,.15)';ctx.lineWidth=1;
+  for(let i=0;i<3;i++){const rx=x+Math.random()*w;const ry=y+Math.random()*h;ctx.beginPath();ctx.moveTo(rx,ry);ctx.lineTo(rx+Math.random()*20,ry+Math.random()*10);ctx.stroke();}
+}
+
 function platW(){
   if(selD==='easy') return 130+Math.random()*30;
   if(selD==='med')  return 95+Math.random()*25;
@@ -589,6 +605,8 @@ function answer(idx,btn){
     GS.isBounceJump=isBonus;
     if(isBonus){sfxBonus();}  // bonus label spawns after wall bounce
     else{sfxCorrect();spawnLabel(GS.streak>1?streakTxt(GS.streak):'+'+pts,'#1dd1a1',false);}
+    // Ice crystal particles on correct answer
+    spawnParticles(AW/2,GS.gH/2-100,true);
     document.getElementById('hStreak').textContent='🔥 '+GS.streak;
     document.getElementById('hScore').textContent=GS.score.toLocaleString('no');
     setTimeout(showQ,isBonus?900:700);
@@ -624,21 +642,22 @@ function streakTxt(s){
   return m[Math.min(s,m.length-1)]||(s+'× COMBO!');
 }
 
-function spawnParticles(x,y){
+function spawnParticles(x,y,isIce=false){
   const sGame=document.getElementById('sGame');
-  const colors=['#ffe033','#ff8c00','#ff4444','#1dd1a1','#c084fc','#fff'];
-  for(let i=0;i<18;i++){
+  const colors=isIce?['#a0e7ff','#64d9ff','#32c5ff','#00b3ff','#fff','#e0f7ff']:['#ffe033','#ff8c00','#ff4444','#1dd1a1','#c084fc','#fff'];
+  const count=isIce?25:18;
+  for(let i=0;i<count;i++){
     const p=document.createElement('div');
     const angle=Math.random()*Math.PI*2;
     const dist=40+Math.random()*80;
     const tx=Math.cos(angle)*dist, ty=Math.sin(angle)*dist;
-    const size=4+Math.random()*6;
-    p.style.cssText=`position:absolute;width:${size}px;height:${size}px;border-radius:50%;
-      background:${colors[i%colors.length]};left:${x}px;top:${y}px;pointer-events:none;z-index:65;
+    const size=isIce?(3+Math.random()*8):(4+Math.random()*6);
+    p.style.cssText=`position:absolute;width:${size}px;height:${size}px;${isIce?'clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);':'border-radius:50%;'}
+      background:${colors[i%colors.length]};left:${x}px;top:${y}px;pointer-events:none;z-index:65;box-shadow:0 0 ${isIce?8:0}px ${colors[i%colors.length]};
       transition:transform .6s ease-out,opacity .6s ease-out;`;
     sGame.appendChild(p);
     requestAnimationFrame(()=>{requestAnimationFrame(()=>{
-      p.style.transform=`translate(${tx}px,${ty}px) scale(0)`;
+      p.style.transform=`translate(${tx}px,${ty}px) scale(0) rotate(${Math.random()*360}deg)`;
       p.style.opacity='0';
     });});
     setTimeout(()=>p.remove(),650);
@@ -820,30 +839,53 @@ function draw(){
   const ctx=GS.ctx;
   ctx.clearRect(0,0,GS.gW,GS.gH);
 
-  // Background: scrolling grey brick wall
-  // Use platform scroll to drive brick offset
+  // Background: North Pole ice fjord theme
+  // Sky gradient
+  const skyGrad=ctx.createLinearGradient(0,0,0,GS.gH);
+  skyGrad.addColorStop(0,'rgba(135,206,235,.7)');
+  skyGrad.addColorStop(0.5,'rgba(176,224,230,.5)');
+  skyGrad.addColorStop(1,'rgba(200,240,255,.3)');
+  ctx.fillStyle=skyGrad;
+  ctx.fillRect(0,0,GS.gW,GS.gH);
+
+  // Ice fjell mountains (background)
+  ctx.fillStyle='rgba(220,245,255,.4)';
+  ctx.beginPath();ctx.moveTo(0,GS.gH*0.6);ctx.lineTo(GS.gW*0.2,GS.gH*0.3);ctx.lineTo(GS.gW*0.4,GS.gH*0.6);ctx.fill();
+  ctx.beginPath();ctx.moveTo(GS.gW*0.5,GS.gH*0.65);ctx.lineTo(GS.gW*0.7,GS.gH*0.2);ctx.lineTo(GS.gW,GS.gH*0.65);ctx.fill();
+
+  // Large blurred ice cubes in background (dominant)
+  ctx.fillStyle='rgba(100,180,255,.08)';
+  ctx.globalAlpha=0.6;
   const topPlat=GS.plats[0];
-  const brickOff=((topPlat.sy % 32)+32)%32;
-  const TSIZE=32;
-  for(let row=-1;row<Math.ceil(GS.gH/TSIZE)+2;row++){
-    const ty=row*TSIZE+brickOff;
-    const even=Math.floor(row+Math.floor(topPlat.sy/TSIZE))%2===0;
-    const xoff=even?0:TSIZE/2;
-    for(let col=-1;col<Math.ceil(AW/TSIZE)+2;col++){
-      drawBrick(ctx,col*TSIZE+xoff,ty,TSIZE-1,Math.floor(TSIZE/2)-1,WF,WD,WM,null);
-    }
+  const baseOff=Math.floor(topPlat.sy/80);
+  for(let i=0;i<5;i++){
+    const icex=(i*GS.gW/3.5+baseOff*20)%GS.gW;
+    const icey=GS.gH*0.2+i*GS.gH*0.15+(baseOff%2)*30;
+    ctx.fillRect(icex,icey,120,100);
+    ctx.strokeStyle='rgba(150,210,255,.12)';ctx.lineWidth=2;ctx.strokeRect(icex,icey,120,100);
+  }
+  ctx.globalAlpha=1;
+
+  // Snowfall effect (subtle)
+  for(let i=0;i<Math.min(10,Math.floor(GS.qCount));i++){
+    const sx=Math.sin(i*7.3+GS.qCount*0.5)*GS.gW/2+GS.gW/4;
+    const sy=(i*GS.gH/10+GS.qCount*2)%GS.gH;
+    ctx.fillStyle='rgba(255,255,255,'+(0.3+Math.sin(GS.qCount+i)*0.3)+')';
+    ctx.beginPath();ctx.arc(sx,sy,2,0,Math.PI*2);ctx.fill();
   }
 
-  // Platforms (red brick)
+  // Platforms (ice cubes)
   GS.plats.forEach(p=>{
     if(p.sy<-50||p.sy>GS.gH+50) return;
     const isTgt=p.slot===GS.targetSlot&&!GS.onGround;
     const isCur=p.slot===GS.curSlot;
     if(isTgt){
-      ctx.strokeStyle='rgba(255,224,51,.85)';ctx.lineWidth=2.5;ctx.setLineDash([4,3]);
-      ctx.strokeRect(p.x-2,p.sy-2,p.w+4,PLAT_H+4);ctx.setLineDash([]);
+      ctx.shadowColor='rgba(255,224,51,.8)';ctx.shadowBlur=15;
+      ctx.strokeStyle='rgba(255,224,51,.9)';ctx.lineWidth=3;ctx.setLineDash([4,3]);
+      ctx.strokeRect(p.x-3,p.sy-3,p.w+6,PLAT_H+6);ctx.setLineDash([]);
+      ctx.shadowColor='transparent';
     }
-    drawBrick(ctx,p.x,p.sy,p.w,PLAT_H,BF,BD,BM,BL);
+    drawIceCube(ctx,p.x,p.sy,p.w,PLAT_H);
     if(isCur&&GS.onGround){
       ctx.fillStyle='rgba(255,255,200,.9)';
       ctx.font='bold 13px sans-serif';ctx.textAlign='center';
