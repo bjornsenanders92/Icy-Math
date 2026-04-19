@@ -278,14 +278,22 @@ prosent:[
   {q:'25% av 100?',a:['25','10','50','75'],c:0,d:1},
   {q:'10% av 50?',a:['5','10','15','20'],c:0,d:1},
   {q:'50% av 80?',a:['40','20','60','30'],c:0,d:1},
+  {q:'50% av 240?',a:['120','100','150','200'],c:0,d:2},
+  {q:'25% av 360?',a:['90','80','100','110'],c:0,d:2},
+  {q:'10% av 1200?',a:['120','100','140','150'],c:0,d:2},
   {q:'800 kr, 25% rabatt?',a:['600 kr','650 kr','700 kr','550 kr'],c:0,d:2},
   {q:'15% av 340 kr?',a:['51 kr','34 kr','68 kr','45 kr'],c:0,d:2},
   {q:'200→250 kr. Økning %?',a:['25%','20%','30%','15%'],c:0,d:2},
   {q:'30% av 450?',a:['135','100','180','90'],c:0,d:2},
   {q:'6000→4500 kr. Rabatt %?',a:['25%','20%','30%','35%'],c:0,d:2},
+  {q:'40% av 750 kr?',a:['300 kr','280 kr','320 kr','350 kr'],c:0,d:2},
+  {q:'20% økning på 500?',a:['600','550','650','500'],c:0,d:2},
   {q:'10% opp, 10% ned. Netto?',a:['−1%','0%','+1%','−2%'],c:0,d:3},
   {q:'10 000 kr, 5% rente, 2 år?',a:['11 025 kr','11 000 kr','10 500 kr','10 250 kr'],c:0,d:3},
   {q:'38 000 kr, 33% skatt. Netto?',a:['25 460 kr','24 000 kr','26 600 kr','23 800 kr'],c:0,d:3},
+  {q:'12 500 kr, 15% rabatt?',a:['10 625 kr','10 500 kr','10 750 kr','11 000 kr'],c:0,d:3},
+  {q:'75 000 kr, 8% rente årlig?',a:['6 000 kr','5 500 kr','6 500 kr','7 000 kr'],c:0,d:3},
+  {q:'Pris opp 50%, ned 30%. Endring?',a:['+5%','+20%','+35%','−20%'],c:0,d:3},
 ],
 mult:[
   {q:'2 × 2',a:['4','2','6','8'],c:0,d:1},
@@ -301,9 +309,18 @@ mult:[
   {q:'9 × 6',a:['54','56','52','48'],c:0,d:2},
   {q:'15 × 6',a:['90','85','95','80'],c:0,d:2},
   {q:'13 × 7',a:['91','84','98','77'],c:0,d:2},
+  {q:'12 × 8',a:['96','88','104','100'],c:0,d:2},
+  {q:'18 × 5',a:['90','85','95','100'],c:0,d:2},
+  {q:'25 × 4',a:['100','96','104','120'],c:0,d:2},
+  {q:'14 × 6',a:['84','80','88','76'],c:0,d:2},
+  {q:'22 × 3',a:['66','60','72','70'],c:0,d:2},
   {q:'12 × 17',a:['204','196','214','192'],c:0,d:3},
   {q:'38 × 47',a:['1 786','1 776','1 800','1 760'],c:0,d:3},
   {q:'24 × 13',a:['312','302','322','296'],c:0,d:3},
+  {q:'29 × 23',a:['667','657','677','700'],c:0,d:3},
+  {q:'45 × 32',a:['1 440','1 420','1 460','1 500'],c:0,d:3},
+  {q:'67 × 18',a:['1 206','1 200','1 220','1 250'],c:0,d:3},
+  {q:'156 ÷ 12',a:['13','12','14','15'],c:0,d:3},
 ],
 tid:[
   {q:'Min i 1 time?',a:['60','30','100','45'],c:0,d:1},
@@ -313,7 +330,13 @@ tid:[
   {q:'7,5t/natt × 7 dager?',a:['52,5t','49t','56t','47,5t'],c:0,d:2},
   {q:'Fly 06:20, 1t45min dit. Avreise?',a:['04:35','04:45','04:30','05:00'],c:0,d:2},
   {q:'1 000 min = ? t og min',a:['16t 40min','15t 0min','17t 0min','16t 0min'],c:0,d:2},
+  {q:'Kl 14:30 + 3t 45min?',a:['18:15','17:45','18:45','17:30'],c:0,d:2},
+  {q:'5 timer = ? min',a:['300','250','350','400'],c:0,d:2},
+  {q:'Ferie 3 uker fra 12. juni?',a:['3. juli','2. juli','4. juli','30. juni'],c:0,d:2},
   {q:'3 uker fra 5. mai?',a:['26. mai','28. mai','2. juni','25. mai'],c:0,d:3},
+  {q:'2 timer, 30 min = ? sekunder',a:['9 000','8 000','10 000','7 500'],c:0,d:3},
+  {q:'Film 2t 15min, start 19:30. Slutt?',a:['21:45','21:30','22:00','21:15'],c:0,d:3},
+  {q:'10 timer med 2 pauser × 15min?',a:['9,5 timer','10 timer','9 timer','8,5 timer'],c:0,d:3},
 ],
 handel:[
   {q:'20 kr − 8 kr?',a:['12 kr','8 kr','18 kr','10 kr'],c:0,d:1},
@@ -324,7 +347,12 @@ handel:[
   {q:'5 kg × 24,90 kr/kg?',a:['124,50 kr','120 kr','125 kr','130 kr'],c:0,d:2},
   {q:'22,50 kr/L × 48 L?',a:['1 080 kr','1 060 kr','1 100 kr','960 kr'],c:0,d:2},
   {q:'429 kr/mnd × 12?',a:['5 148 kr','4 800 kr','5 000 kr','5 200 kr'],c:0,d:2},
+  {q:'8 × 180 kr?',a:['1 440 kr','1 400 kr','1 500 kr','1 600 kr'],c:0,d:2},
+  {q:'3 epler × 12 kr + 1 is × 18 kr?',a:['54 kr','50 kr','60 kr','45 kr'],c:0,d:2},
+  {q:'15 liter × 18,50 kr/L?',a:['277,50 kr','270 kr','285 kr','300 kr'],c:0,d:2},
   {q:'150 000 kr, 3,5%/år. 1. mnd rente?',a:['437,50 kr','525 kr','350 kr','500 kr'],c:0,d:3},
+  {q:'4 biler × 280 000 kr?',a:['1 120 000 kr','1 100 000 kr','1 150 000 kr','1 000 000 kr'],c:0,d:3},
+  {q:'500 kg × 45,80 kr/kg?',a:['22 900 kr','22 500 kr','23 000 kr','23 500 kr'],c:0,d:3},
 ],
 areal:[
   {q:'3m × 4m = ?',a:['12 m²','7 m²','10 m²','16 m²'],c:0,d:1},
@@ -332,8 +360,12 @@ areal:[
   {q:'2m × 6m = ?',a:['12 m²','8 m²','16 m²','10 m²'],c:0,d:1},
   {q:'Trekant b=6m h=4m. Areal?',a:['12 m²','24 m²','10 m²','8 m²'],c:0,d:2},
   {q:'20×20cm fliser, 12m² rom?',a:['300','240','360','280'],c:0,d:2},
+  {q:'Rektangel 7m × 5m. Omkrets?',a:['24 m','35 m','12 m','14 m'],c:0,d:2},
+  {q:'Trekant b=10m h=8m. Areal?',a:['40 m²','80 m²','50 m²','30 m²'],c:0,d:2},
   {q:'Sirkel r=7m. Areal (π≈3,14)?',a:['153,86 m²','140 m²','160 m²','125 m²'],c:0,d:3},
   {q:'4,5×3,2m, 129 kr/m²?',a:['1 858 kr','1 800 kr','2 000 kr','1 750 kr'],c:0,d:3},
+  {q:'Sirkel r=10m. Omkrets (π≈3,14)?',a:['62,8 m','60 m','65 m','70 m'],c:0,d:3},
+  {q:'Rektangel 12m × 8m, 75 kr/m²?',a:['7 200 kr','7 000 kr','7 500 kr','8 000 kr'],c:0,d:3},
 ],
 hode:[
   {q:'5 + 7',a:['12','10','11','13'],c:0,d:1},
@@ -346,8 +378,12 @@ hode:[
   {q:'15 × 8',a:['120','115','125','110'],c:0,d:2},
   {q:'¾ av 400',a:['300','320','280','350'],c:0,d:2},
   {q:'√225',a:['15','14','16','13'],c:0,d:2},
+  {q:'25 + 37 − 12',a:['50','48','52','45'],c:0,d:2},
+  {q:'½ av 260',a:['130','125','135','140'],c:0,d:2},
   {q:'(8+12) × 7',a:['140','120','160','130'],c:0,d:3},
   {q:'1728 ÷ 12',a:['144','136','148','132'],c:0,d:3},
+  {q:'(20+30) ÷ 2 + 5',a:['30','25','35','28'],c:0,d:3},
+  {q:'100 − (25 × 3)',a:['25','50','75','0'],c:0,d:3},
 ],
 stat:[
   {q:'Snitt av 2, 4, 6?',a:['4','3','5','6'],c:0,d:1},
@@ -356,7 +392,12 @@ stat:[
   {q:'Terning – kan du få 7?',a:['Nei','Ja','Av og til','Alltid'],c:0,d:1},
   {q:'Snitt av 6, 8, 10, 12?',a:['9','8','10','11'],c:0,d:2},
   {q:'8,5,−2,0,3. Median?',a:['3','5','0','2'],c:0,d:2},
-  {q:'2 terninger. Sum=7?',a:['1/6','1/4','1/8','1/12'],c:0,d:3},
+  {q:'2 terninger. Sum=7?',a:['1/6','1/4','1/8','1/12'],c:0,d:2},
+  {q:'Snitt av 12, 18, 24?',a:['18','16','20','15'],c:0,d:2},
+  {q:'Kortstokk. Sjanse for hjerterkort?',a:['1/4','1/2','1/13','1/52'],c:0,d:2},
+  {q:'Snitt av 5, 10, 15, 20, 25?',a:['15','12','18','20'],c:0,d:3},
+  {q:'Datasett: 7,8,10,12. Median?',a:['9','10','8','11'],c:0,d:3},
+  {q:'3 terninger. Min sum mulig?',a:['3','1','0','6'],c:0,d:3},
 ],
 };
 
@@ -398,19 +439,28 @@ function drawBrick(ctx,x,y,w,h,face,dark,mort,light){
 }
 
 function drawIceCube(ctx,x,y,w,h){
-  // 3D ice cube with gradient and glow effect
-  const grad=ctx.createLinearGradient(x,y,x,y+h);
-  grad.addColorStop(0,'rgba(200,240,255,.9)');
-  grad.addColorStop(1,'rgba(150,220,255,.8)');
-  ctx.fillStyle=grad;
+  // 3D ice cube with gradient and glow
+  const topGrad=ctx.createLinearGradient(x,y,x+w,y+h);
+  topGrad.addColorStop(0,'rgba(220,250,255,.95)');
+  topGrad.addColorStop(0.5,'rgba(180,235,255,.9)');
+  topGrad.addColorStop(1,'rgba(150,220,255,.85)');
+  ctx.fillStyle=topGrad;
   ctx.fillRect(x,y,w,h);
+  // 3D edges
+  ctx.fillStyle='rgba(100,180,220,.5)';ctx.fillRect(x+w-3,y,3,h);
+  ctx.fillStyle='rgba(80,160,200,.4)';ctx.fillRect(x,y+h-3,w,3);
   // Glow
-  ctx.shadowColor='rgba(100,200,255,.6)';ctx.shadowBlur=8;
-  ctx.strokeStyle='rgba(150,230,255,.7)';ctx.lineWidth=2;
-  ctx.strokeRect(x,y,w,h);ctx.shadowColor='transparent';
-  // Frost scratches
-  ctx.strokeStyle='rgba(255,255,255,.15)';ctx.lineWidth=1;
-  for(let i=0;i<3;i++){const rx=x+Math.random()*w;const ry=y+Math.random()*h;ctx.beginPath();ctx.moveTo(rx,ry);ctx.lineTo(rx+Math.random()*20,ry+Math.random()*10);ctx.stroke();}
+  ctx.strokeStyle='rgba(180,240,255,.7)';ctx.lineWidth=2;ctx.strokeRect(x,y,w,h);
+  // Highlight
+  ctx.strokeStyle='rgba(255,255,255,.3)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(x+2,y+2);ctx.lineTo(x+w-4,y+2);ctx.stroke();
+  // Frost patterns
+  ctx.strokeStyle='rgba(255,255,255,.2)';ctx.lineWidth=0.8;
+  for(let i=0;i<3;i++){
+    const rx=x+2+Math.random()*(w-4);const ry=y+2+Math.random()*(h-4);
+    const a=Math.random()*Math.PI*2;const l=4+Math.random()*6;
+    ctx.beginPath();ctx.moveTo(rx,ry);ctx.lineTo(rx+Math.cos(a)*l,ry+Math.sin(a)*l);ctx.stroke();
+  }
 }
 
 function platW(){
@@ -536,7 +586,7 @@ function getScrollPx(){
 //  QUESTION
 // ──────────────────────────────────────────────
 function pickQ(){
-  const allowed=selD==='easy'?[1]:selD==='med'?[1,2]:[2,3];
+  const allowed=selD==='easy'?[1]:selD==='med'?[2]:[3];
   const pool=Object.values(QB).flat().filter(q=>allowed.includes(q.d));
   const avail=pool.filter(q=>!GS.used.includes(q.q));
   if(!avail.length){GS.used=[];return pickQ();}
@@ -839,39 +889,57 @@ function draw(){
   const ctx=GS.ctx;
   ctx.clearRect(0,0,GS.gW,GS.gH);
 
-  // Background: North Pole ice fjord theme
-  // Sky gradient
+  // Background: North Pole ice fjord theme (inspired by reference image)
+  // Sky gradient - deep arctic blue
   const skyGrad=ctx.createLinearGradient(0,0,0,GS.gH);
-  skyGrad.addColorStop(0,'rgba(135,206,235,.7)');
-  skyGrad.addColorStop(0.5,'rgba(176,224,230,.5)');
-  skyGrad.addColorStop(1,'rgba(200,240,255,.3)');
+  skyGrad.addColorStop(0,'rgba(120,180,230,.8)');
+  skyGrad.addColorStop(0.3,'rgba(150,200,240,.7)');
+  skyGrad.addColorStop(1,'rgba(180,220,250,.4)');
   ctx.fillStyle=skyGrad;
   ctx.fillRect(0,0,GS.gW,GS.gH);
 
-  // Ice fjell mountains (background)
-  ctx.fillStyle='rgba(220,245,255,.4)';
-  ctx.beginPath();ctx.moveTo(0,GS.gH*0.6);ctx.lineTo(GS.gW*0.2,GS.gH*0.3);ctx.lineTo(GS.gW*0.4,GS.gH*0.6);ctx.fill();
-  ctx.beginPath();ctx.moveTo(GS.gW*0.5,GS.gH*0.65);ctx.lineTo(GS.gW*0.7,GS.gH*0.2);ctx.lineTo(GS.gW,GS.gH*0.65);ctx.fill();
+  // Large ice fjell mountains in background - multiple layers
+  const topPlat=GS.plats[0]||{sy:0};
+  const baseOff=Math.floor(topPlat.sy/100);
 
-  // Large blurred ice cubes in background (dominant)
-  ctx.fillStyle='rgba(100,180,255,.08)';
-  ctx.globalAlpha=0.6;
-  const topPlat=GS.plats[0];
-  const baseOff=Math.floor(topPlat.sy/80);
-  for(let i=0;i<5;i++){
-    const icex=(i*GS.gW/3.5+baseOff*20)%GS.gW;
-    const icey=GS.gH*0.2+i*GS.gH*0.15+(baseOff%2)*30;
-    ctx.fillRect(icex,icey,120,100);
-    ctx.strokeStyle='rgba(150,210,255,.12)';ctx.lineWidth=2;ctx.strokeRect(icex,icey,120,100);
-  }
+  // Far mountains (darkest)
+  ctx.fillStyle='rgba(150,200,230,.25)';
+  ctx.beginPath();ctx.moveTo(-20,GS.gH*0.4);ctx.lineTo(GS.gW*0.15,GS.gH*0.1);ctx.lineTo(GS.gW*0.35,GS.gH*0.4);ctx.fill();
+  ctx.beginPath();ctx.moveTo(GS.gW*0.6,GS.gH*0.42);ctx.lineTo(GS.gW*0.85,GS.gH*0.05);ctx.lineTo(GS.gW+20,GS.gH*0.42);ctx.fill();
+
+  // Mid mountains
+  ctx.fillStyle='rgba(180,225,240,.35)';
+  ctx.beginPath();ctx.moveTo(0,GS.gH*0.55);ctx.lineTo(GS.gW*0.25,GS.gH*0.25);ctx.lineTo(GS.gW*0.5,GS.gH*0.55);ctx.fill();
+  ctx.beginPath();ctx.moveTo(GS.gW*0.5,GS.gH*0.58);ctx.lineTo(GS.gW*0.75,GS.gH*0.2);ctx.lineTo(GS.gW,GS.gH*0.58);ctx.fill();
+
+  // DOMINANT: Large 3D ice cubes (inspired by reference image)
+  ctx.globalAlpha=0.75;
+  const cubePositions=[
+    {x:GS.gW*0.05,y:GS.gH*0.35,s:140},
+    {x:GS.gW*0.3,y:GS.gH*0.48,s:160},
+    {x:GS.gW*0.62,y:GS.gH*0.4,s:135},
+    {x:GS.gW*0.85,y:GS.gH*0.52,s:150},
+    {x:GS.gW*0.15,y:GS.gH*0.62,s:120},
+  ];
+  cubePositions.forEach(c=>{
+    // Ice cube gradient (blurred effect)
+    const grad=ctx.createLinearGradient(c.x,c.y,c.x+c.s,c.y+c.s);
+    grad.addColorStop(0,'rgba(200,240,255,.5)');
+    grad.addColorStop(1,'rgba(150,210,240,.3)');
+    ctx.fillStyle=grad;
+    ctx.fillRect(c.x,c.y,c.s,c.s*0.85);
+    // Soft edges
+    ctx.strokeStyle='rgba(180,230,255,.2)';ctx.lineWidth=3;ctx.strokeRect(c.x,c.y,c.s,c.s*0.85);
+  });
   ctx.globalAlpha=1;
 
-  // Snowfall effect (subtle)
-  for(let i=0;i<Math.min(10,Math.floor(GS.qCount));i++){
-    const sx=Math.sin(i*7.3+GS.qCount*0.5)*GS.gW/2+GS.gW/4;
-    const sy=(i*GS.gH/10+GS.qCount*2)%GS.gH;
-    ctx.fillStyle='rgba(255,255,255,'+(0.3+Math.sin(GS.qCount+i)*0.3)+')';
-    ctx.beginPath();ctx.arc(sx,sy,2,0,Math.PI*2);ctx.fill();
+  // Snowfall effect - more snow particles
+  for(let i=0;i<Math.min(15,Math.floor(GS.qCount/2)+5);i++){
+    const sx=Math.sin(i*7.3+GS.qCount*0.3)*(GS.gW*0.6)+GS.gW/4;
+    const sy=(i*GS.gH/12+GS.qCount*1.5)%GS.gH;
+    const sz=2+Math.sin(i+GS.qCount)*1;
+    ctx.fillStyle='rgba(255,255,255,'+(0.4+Math.sin(GS.qCount*0.01+i)*0.25)+')';
+    ctx.beginPath();ctx.arc(sx,sy,sz,0,Math.PI*2);ctx.fill();
   }
 
   // Platforms (ice cubes)
