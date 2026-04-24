@@ -7,11 +7,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{width:100%;height:100%;overflow:hidden;background:#0a1628;font-family:'Nunito',sans-serif;color:#fff;background-image:radial-gradient(circle at 20% 30%, rgba(100,220,255,.15) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(150,230,255,.12) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(100,200,255,.1) 0%, transparent 50%), repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(100,180,255,.06) 35px, rgba(100,180,255,.06) 70px);}
+html,body{width:100%;height:100%;overflow:hidden;background:#051d35;font-family:'Nunito',sans-serif;color:#fff;background-image:
+radial-gradient(ellipse 800px 600px at 15% 10%, rgba(150,240,255,.25) 0%, transparent 50%),
+radial-gradient(ellipse 900px 700px at 85% 15%, rgba(120,220,255,.2) 0%, transparent 50%),
+radial-gradient(ellipse 600px 500px at 50% 85%, rgba(100,200,255,.15) 0%, transparent 60%),
+linear-gradient(180deg, rgba(15,50,90,.4) 0%, transparent 30%, transparent 70%, rgba(10,30,60,.3) 100%),
+repeating-linear-gradient(15deg, transparent 0px, transparent 40px, rgba(100,200,255,.08) 40px, rgba(100,200,255,.08) 80px),
+repeating-linear-gradient(75deg, transparent 0px, transparent 50px, rgba(80,180,255,.06) 50px, rgba(80,180,255,.06) 100px);
+background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+background-attachment: fixed;}
 #app{width:100%;max-width:430px;height:100%;margin:0 auto;position:relative;overflow:hidden;}
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;transition:opacity .25s;}
 .screen.off{opacity:0;pointer-events:none;}
-#sHome{background:linear-gradient(180deg,#051929 0%,#0d2a47 60%,#051929 100%),radial-gradient(circle at 15% 20%, rgba(120,240,255,.2) 0%, transparent 50%), radial-gradient(circle at 85% 80%, rgba(100,220,255,.15) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(80,200,255,.1) 0%, transparent 50%), repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(100,200,255,.08) 40px, rgba(100,200,255,.08) 80px);background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, auto;}
+#sHome{background:linear-gradient(180deg,#051d35 0%,#0a2f50 50%,#051d35 100%),radial-gradient(ellipse 600px 500px at 20% 25%, rgba(130,250,255,.2) 0%, transparent 60%), radial-gradient(ellipse 700px 600px at 85% 75%, rgba(110,230,255,.18) 0%, transparent 60%), radial-gradient(ellipse 500px 400px at 50% 50%, rgba(90,210,255,.12) 0%, transparent 70%), repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(100,200,255,.08) 40px, rgba(100,200,255,.08) 80px);background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, auto;}
 .logo{font-family:'Fredoka One',cursive;font-size:62px;line-height:1;background:linear-gradient(135deg,#ffe033 0%,#ff8c00 50%,#ff4444 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 30px rgba(255,224,51,.5));}
 .logo-sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:4px;}
 .hero{font-size:74px;margin:12px 0;animation:bob 2s ease-in-out infinite;}
@@ -273,99 +281,229 @@ function go(id){
 const QB={
 prosent:[
   {q:'50% av 20?',a:['10','5','15','20'],c:0,d:1},
+  {q:'50% av 30?',a:['15','10','20','25'],c:0,d:1},
+  {q:'50% av 60?',a:['30','20','40','50'],c:0,d:1},
   {q:'10% av 100?',a:['10','1','100','20'],c:0,d:1},
-  {q:'50% av 40?',a:['20','10','30','40'],c:0,d:1},
-  {q:'25% av 100?',a:['25','10','50','75'],c:0,d:1},
   {q:'10% av 50?',a:['5','10','15','20'],c:0,d:1},
-  {q:'50% av 80?',a:['40','20','60','30'],c:0,d:1},
+  {q:'10% av 200?',a:['20','10','30','40'],c:0,d:1},
+  {q:'25% av 100?',a:['25','10','50','75'],c:0,d:1},
+  {q:'25% av 80?',a:['20','15','25','30'],c:0,d:1},
+  {q:'25% av 200?',a:['50','40','60','70'],c:0,d:1},
+  {q:'20% av 100?',a:['20','10','30','40'],c:0,d:1},
+  {q:'20% av 50?',a:['10','5','15','20'],c:0,d:1},
   {q:'50% av 240?',a:['120','100','150','200'],c:0,d:2},
+  {q:'50% av 320?',a:['160','140','180','200'],c:0,d:2},
   {q:'25% av 360?',a:['90','80','100','110'],c:0,d:2},
+  {q:'25% av 480?',a:['120','100','140','150'],c:0,d:2},
   {q:'10% av 1200?',a:['120','100','140','150'],c:0,d:2},
+  {q:'10% av 850?',a:['85','75','95','105'],c:0,d:2},
   {q:'800 kr, 25% rabatt?',a:['600 kr','650 kr','700 kr','550 kr'],c:0,d:2},
+  {q:'600 kr, 20% rabatt?',a:['480 kr','500 kr','520 kr','450 kr'],c:0,d:2},
   {q:'15% av 340 kr?',a:['51 kr','34 kr','68 kr','45 kr'],c:0,d:2},
+  {q:'15% av 200 kr?',a:['30 kr','20 kr','40 kr','50 kr'],c:0,d:2},
   {q:'200→250 kr. Økning %?',a:['25%','20%','30%','15%'],c:0,d:2},
+  {q:'300→360 kr. Økning %?',a:['20%','15%','25%','30%'],c:0,d:2},
   {q:'30% av 450?',a:['135','100','180','90'],c:0,d:2},
+  {q:'30% av 600?',a:['180','150','210','200'],c:0,d:2},
   {q:'6000→4500 kr. Rabatt %?',a:['25%','20%','30%','35%'],c:0,d:2},
+  {q:'8000→6000 kr. Rabatt %?',a:['25%','20%','30%','15%'],c:0,d:2},
   {q:'40% av 750 kr?',a:['300 kr','280 kr','320 kr','350 kr'],c:0,d:2},
+  {q:'40% av 1000 kr?',a:['400 kr','380 kr','420 kr','450 kr'],c:0,d:2},
   {q:'20% økning på 500?',a:['600','550','650','500'],c:0,d:2},
+  {q:'30% økning på 700?',a:['910','900','850','850'],c:0,d:2},
   {q:'10% opp, 10% ned. Netto?',a:['−1%','0%','+1%','−2%'],c:0,d:3},
+  {q:'20% opp, 10% ned. Netto?',a:['+8%','+5%','+10%','+12%'],c:0,d:3},
   {q:'10 000 kr, 5% rente, 2 år?',a:['11 025 kr','11 000 kr','10 500 kr','10 250 kr'],c:0,d:3},
+  {q:'20 000 kr, 4% rente, 2 år?',a:['21 632 kr','21 000 kr','20 800 kr','22 000 kr'],c:0,d:3},
   {q:'38 000 kr, 33% skatt. Netto?',a:['25 460 kr','24 000 kr','26 600 kr','23 800 kr'],c:0,d:3},
+  {q:'50 000 kr, 25% skatt. Netto?',a:['37 500 kr','35 000 kr','40 000 kr','38 000 kr'],c:0,d:3},
   {q:'12 500 kr, 15% rabatt?',a:['10 625 kr','10 500 kr','10 750 kr','11 000 kr'],c:0,d:3},
+  {q:'25 000 kr, 12% rabatt?',a:['22 000 kr','21 500 kr','22 500 kr','23 000 kr'],c:0,d:3},
   {q:'75 000 kr, 8% rente årlig?',a:['6 000 kr','5 500 kr','6 500 kr','7 000 kr'],c:0,d:3},
+  {q:'100 000 kr, 6% rente årlig?',a:['6 000 kr','5 000 kr','7 000 kr','8 000 kr'],c:0,d:3},
   {q:'Pris opp 50%, ned 30%. Endring?',a:['+5%','+20%','+35%','−20%'],c:0,d:3},
+  {q:'Pris opp 40%, ned 20%. Endring?',a:['+12%','+10%','+20%','+5%'],c:0,d:3},
+  {q:'35% av 180?',a:['63','60','70','55'],c:0,d:2},
+  {q:'45% av 220?',a:['99','100','110','88'],c:0,d:2},
+  {q:'12% av 750?',a:['90','85','95','80'],c:0,d:2},
+  {q:'18% av 500?',a:['90','80','100','95'],c:0,d:2},
+  {q:'5000→4000 kr. Nedgang %?',a:['20%','25%','15%','30%'],c:0,d:2},
+  {q:'32 000 kr, 5% rente, 1 år?',a:['33 600 kr','33 500 kr','33 700 kr','34 000 kr'],c:0,d:3},
+  {q:'48 000 kr, 3,5% rente, 1 år?',a:['49 680 kr','49 500 kr','49 800 kr','50 000 kr'],c:0,d:3},
+  {q:'18 000 kr, 28% skatt. Netto?',a:['12 960 kr','12 500 kr','13 000 kr','12 800 kr'],c:0,d:3},
+  {q:'Pris 3× opp 10%. Total økning?',a:['+33,1%','+30%','+35%','+32%'],c:0,d:3},
+  {q:'Pris 2× ned 15%. Total nedgang?',a:['-27,75%','-30%','-25%','-28%'],c:0,d:3},
 ],
 mult:[
   {q:'2 × 2',a:['4','2','6','8'],c:0,d:1},
+  {q:'2 × 3',a:['6','4','8','10'],c:0,d:1},
+  {q:'2 × 4',a:['8','6','10','12'],c:0,d:1},
   {q:'3 × 3',a:['9','6','12','3'],c:0,d:1},
+  {q:'3 × 5',a:['15','12','18','20'],c:0,d:1},
+  {q:'4 × 4',a:['16','12','20','18'],c:0,d:1},
   {q:'5 × 2',a:['10','5','15','7'],c:0,d:1},
-  {q:'4 × 2',a:['8','6','10','4'],c:0,d:1},
-  {q:'2 × 6',a:['12','8','10','14'],c:0,d:1},
-  {q:'3 × 4',a:['12','7','10','9'],c:0,d:1},
+  {q:'5 × 3',a:['15','10','20','12'],c:0,d:1},
   {q:'5 × 5',a:['25','20','30','15'],c:0,d:1},
+  {q:'6 × 2',a:['12','10','14','16'],c:0,d:1},
+  {q:'6 × 3',a:['18','15','20','22'],c:0,d:1},
+  {q:'7 × 2',a:['14','12','16','18'],c:0,d:1},
+  {q:'7 × 3',a:['21','18','24','20'],c:0,d:1},
+  {q:'8 × 2',a:['16','14','18','20'],c:0,d:1},
   {q:'10 × 3',a:['30','13','20','33'],c:0,d:1},
   {q:'6 × 7',a:['42','36','48','45'],c:0,d:1},
-  {q:'8 × 7',a:['56','54','58','48'],c:0,d:2},
-  {q:'9 × 6',a:['54','56','52','48'],c:0,d:2},
+  {q:'7 × 8',a:['56','54','58','48'],c:0,d:2},
+  {q:'6 × 9',a:['54','56','52','48'],c:0,d:2},
+  {q:'7 × 9',a:['63','60','66','58'],c:0,d:2},
+  {q:'8 × 8',a:['64','62','66','60'],c:0,d:2},
   {q:'15 × 6',a:['90','85','95','80'],c:0,d:2},
-  {q:'13 × 7',a:['91','84','98','77'],c:0,d:2},
+  {q:'15 × 7',a:['105','100','110','95'],c:0,d:2},
   {q:'12 × 8',a:['96','88','104','100'],c:0,d:2},
+  {q:'12 × 9',a:['108','100','116','120'],c:0,d:2},
+  {q:'13 × 7',a:['91','84','98','77'],c:0,d:2},
+  {q:'13 × 8',a:['104','96','112','108'],c:0,d:2},
   {q:'18 × 5',a:['90','85','95','100'],c:0,d:2},
+  {q:'18 × 6',a:['108','100','116','120'],c:0,d:2},
   {q:'25 × 4',a:['100','96','104','120'],c:0,d:2},
   {q:'14 × 6',a:['84','80','88','76'],c:0,d:2},
+  {q:'14 × 7',a:['98','90','106','100'],c:0,d:2},
   {q:'22 × 3',a:['66','60','72','70'],c:0,d:2},
+  {q:'22 × 4',a:['88','84','92','96'],c:0,d:2},
+  {q:'11 × 9',a:['99','90','108','105'],c:0,d:2},
   {q:'12 × 17',a:['204','196','214','192'],c:0,d:3},
-  {q:'38 × 47',a:['1 786','1 776','1 800','1 760'],c:0,d:3},
+  {q:'12 × 15',a:['180','170','190','200'],c:0,d:3},
+  {q:'15 × 17',a:['255','245','265','250'],c:0,d:3},
   {q:'24 × 13',a:['312','302','322','296'],c:0,d:3},
+  {q:'24 × 15',a:['360','350','370','380'],c:0,d:3},
   {q:'29 × 23',a:['667','657','677','700'],c:0,d:3},
+  {q:'35 × 24',a:['840','820','860','850'],c:0,d:3},
   {q:'45 × 32',a:['1 440','1 420','1 460','1 500'],c:0,d:3},
   {q:'67 × 18',a:['1 206','1 200','1 220','1 250'],c:0,d:3},
+  {q:'52 × 27',a:['1 404','1 390','1 420','1 440'],c:0,d:3},
+  {q:'38 × 47',a:['1 786','1 776','1 800','1 760'],c:0,d:3},
   {q:'156 ÷ 12',a:['13','12','14','15'],c:0,d:3},
+  {q:'144 ÷ 12',a:['12','11','13','14'],c:0,d:3},
+  {q:'16 × 12',a:['192','180','200','204'],c:0,d:2},
+  {q:'14 × 8',a:['112','110','120','108'],c:0,d:2},
+  {q:'17 × 9',a:['153','150','160','148'],c:0,d:2},
+  {q:'19 × 7',a:['133','130','140','126'],c:0,d:2},
+  {q:'47 × 12',a:['564','550','580','570'],c:0,d:3},
+  {q:'53 × 18',a:['954','940','970','980'],c:0,d:3},
+  {q:'73 × 15',a:['1 095','1 080','1 110','1 100'],c:0,d:3},
+  {q:'84 × 22',a:['1 848','1 820','1 870','1 900'],c:0,d:3},
+  {q:'126 ÷ 9',a:['14','12','16','13'],c:0,d:3},
+  {q:'196 ÷ 14',a:['14','12','16','13'],c:0,d:3},
 ],
 tid:[
   {q:'Min i 1 time?',a:['60','30','100','45'],c:0,d:1},
   {q:'Timer i 1 dag?',a:['24','12','48','7'],c:0,d:1},
   {q:'Kl 3 + 2t?',a:['5','4','6','7'],c:0,d:1},
+  {q:'Kl 5 + 3t?',a:['8','6','9','7'],c:0,d:1},
+  {q:'Kl 10 + 2t?',a:['12','10','14','11'],c:0,d:1},
   {q:'Mandag + 2 dager?',a:['Onsdag','Tirsdag','Torsdag','Fredag'],c:0,d:1},
+  {q:'Tirsdag + 3 dager?',a:['Fredag','Torsdag','Lørdag','Onsdag'],c:0,d:1},
+  {q:'Onsdag + 4 dager?',a:['Søndag','Lørdag','Fredag','Mandag'],c:0,d:1},
+  {q:'Torsdag + 5 dager?',a:['Tirsdag','Mandag','Onsdag','Fredag'],c:0,d:1},
   {q:'7,5t/natt × 7 dager?',a:['52,5t','49t','56t','47,5t'],c:0,d:2},
+  {q:'6t/natt × 7 dager?',a:['42t','40t','45t','48t'],c:0,d:2},
+  {q:'8t/dag × 5 dager?',a:['40t','35t','45t','50t'],c:0,d:2},
   {q:'Fly 06:20, 1t45min dit. Avreise?',a:['04:35','04:45','04:30','05:00'],c:0,d:2},
+  {q:'Fly 08:15, 2t30min dit. Avreise?',a:['05:45','05:30','06:00','06:15'],c:0,d:2},
   {q:'1 000 min = ? t og min',a:['16t 40min','15t 0min','17t 0min','16t 0min'],c:0,d:2},
+  {q:'1 200 min = ? t og min',a:['20t 0min','19t 0min','21t 0min','18t 30min'],c:0,d:2},
   {q:'Kl 14:30 + 3t 45min?',a:['18:15','17:45','18:45','17:30'],c:0,d:2},
+  {q:'Kl 12:45 + 2t 30min?',a:['15:15','15:00','14:45','15:30'],c:0,d:2},
   {q:'5 timer = ? min',a:['300','250','350','400'],c:0,d:2},
+  {q:'6 timer = ? min',a:['360','300','390','420'],c:0,d:2},
   {q:'Ferie 3 uker fra 12. juni?',a:['3. juli','2. juli','4. juli','30. juni'],c:0,d:2},
+  {q:'Ferie 2 uker fra 1. juli?',a:['15. juli','14. juli','16. juli','30. juni'],c:0,d:2},
   {q:'3 uker fra 5. mai?',a:['26. mai','28. mai','2. juni','25. mai'],c:0,d:3},
+  {q:'4 uker fra 10. april?',a:['8. mai','7. mai','9. mai','30. april'],c:0,d:3},
   {q:'2 timer, 30 min = ? sekunder',a:['9 000','8 000','10 000','7 500'],c:0,d:3},
+  {q:'3 timer, 20 min = ? sekunder',a:['12 000','11 000','13 000','10 800'],c:0,d:3},
   {q:'Film 2t 15min, start 19:30. Slutt?',a:['21:45','21:30','22:00','21:15'],c:0,d:3},
+  {q:'Film 1t 50min, start 20:10. Slutt?',a:['22:00','21:45','22:15','21:30'],c:0,d:3},
   {q:'10 timer med 2 pauser × 15min?',a:['9,5 timer','10 timer','9 timer','8,5 timer'],c:0,d:3},
+  {q:'8 timer med 3 pauser × 10min?',a:['7,5 timer','8 timer','7 timer','6,5 timer'],c:0,d:3},
+  {q:'10t/dag × 6 dager?',a:['60t','55t','65t','70t'],c:0,d:2},
+  {q:'9t/dag × 4 dager?',a:['36t','32t','40t','44t'],c:0,d:2},
+  {q:'Møte 14:15, 45min langt. Slutt?',a:['15:00','14:45','15:15','15:30'],c:0,d:2},
+  {q:'Start 09:30, varighet 2t 20min. Slutt?',a:['11:50','11:30','12:00','11:45'],c:0,d:2},
+  {q:'4 uker fra 20. februar?',a:['19. mars','18. mars','20. mars','21. mars'],c:0,d:3},
+  {q:'5 uker fra 12. september?',a:['17. oktober','15. oktober','19. oktober','16. oktober'],c:0,d:3},
+  {q:'Fly 07:45, 3t 20min fly. Framme?',a:['11:05','10:45','11:30','11:15'],c:0,d:2},
+  {q:'Kl 16:50 + 2t 15min?',a:['19:05','19:00','19:15','18:50'],c:0,d:2},
 ],
 handel:[
   {q:'20 kr − 8 kr?',a:['12 kr','8 kr','18 kr','10 kr'],c:0,d:1},
+  {q:'30 kr − 15 kr?',a:['15 kr','20 kr','10 kr','25 kr'],c:0,d:1},
+  {q:'50 kr − 30 kr?',a:['20 kr','30 kr','10 kr','25 kr'],c:0,d:1},
   {q:'Is 15 kr × 2?',a:['30 kr','25 kr','20 kr','35 kr'],c:0,d:1},
-  {q:'50 kr − 30 kr = ?',a:['20 kr','30 kr','10 kr','25 kr'],c:0,d:1},
+  {q:'Pølse 20 kr × 3?',a:['60 kr','50 kr','70 kr','45 kr'],c:0,d:1},
   {q:'3 epler × 5 kr?',a:['15 kr','10 kr','20 kr','8 kr'],c:0,d:1},
   {q:'4 × 25 kr?',a:['100 kr','80 kr','120 kr','75 kr'],c:0,d:1},
+  {q:'5 × 10 kr?',a:['50 kr','40 kr','60 kr','45 kr'],c:0,d:1},
+  {q:'100 kr − 40 kr?',a:['60 kr','50 kr','70 kr','80 kr'],c:0,d:1},
   {q:'5 kg × 24,90 kr/kg?',a:['124,50 kr','120 kr','125 kr','130 kr'],c:0,d:2},
+  {q:'3 kg × 35 kr/kg?',a:['105 kr','100 kr','110 kr','120 kr'],c:0,d:2},
   {q:'22,50 kr/L × 48 L?',a:['1 080 kr','1 060 kr','1 100 kr','960 kr'],c:0,d:2},
+  {q:'20 kr/L × 25 L?',a:['500 kr','480 kr','520 kr','550 kr'],c:0,d:2},
   {q:'429 kr/mnd × 12?',a:['5 148 kr','4 800 kr','5 000 kr','5 200 kr'],c:0,d:2},
+  {q:'350 kr/mnd × 12?',a:['4 200 kr','4 000 kr','4 400 kr','4 500 kr'],c:0,d:2},
   {q:'8 × 180 kr?',a:['1 440 kr','1 400 kr','1 500 kr','1 600 kr'],c:0,d:2},
+  {q:'6 × 250 kr?',a:['1 500 kr','1 400 kr','1 600 kr','1 700 kr'],c:0,d:2},
   {q:'3 epler × 12 kr + 1 is × 18 kr?',a:['54 kr','50 kr','60 kr','45 kr'],c:0,d:2},
+  {q:'2 smørbrød × 85 kr + drikke 25 kr?',a:['195 kr','180 kr','200 kr','210 kr'],c:0,d:2},
   {q:'15 liter × 18,50 kr/L?',a:['277,50 kr','270 kr','285 kr','300 kr'],c:0,d:2},
+  {q:'12 liter × 22 kr/L?',a:['264 kr','240 kr','280 kr','300 kr'],c:0,d:2},
   {q:'150 000 kr, 3,5%/år. 1. mnd rente?',a:['437,50 kr','525 kr','350 kr','500 kr'],c:0,d:3},
+  {q:'200 000 kr, 4%/år. 1. mnd rente?',a:['666,67 kr','600 kr','700 kr','750 kr'],c:0,d:3},
   {q:'4 biler × 280 000 kr?',a:['1 120 000 kr','1 100 000 kr','1 150 000 kr','1 000 000 kr'],c:0,d:3},
+  {q:'6 biler × 350 000 kr?',a:['2 100 000 kr','2 000 000 kr','2 200 000 kr','2 300 000 kr'],c:0,d:3},
   {q:'500 kg × 45,80 kr/kg?',a:['22 900 kr','22 500 kr','23 000 kr','23 500 kr'],c:0,d:3},
+  {q:'800 kg × 28,50 kr/kg?',a:['22 800 kr','22 000 kr','23 000 kr','23 800 kr'],c:0,d:3},
+  {q:'7 kg × 32,50 kr/kg?',a:['227,50 kr','220 kr','235 kr','240 kr'],c:0,d:2},
+  {q:'2 liter × 125 kr/liter?',a:['250 kr','240 kr','260 kr','280 kr'],c:0,d:2},
+  {q:'40 × 145 kr?',a:['5 800 kr','5 700 kr','5 900 kr','6 000 kr'],c:0,d:2},
+  {q:'36 × 275 kr?',a:['9 900 kr','9 800 kr','10 000 kr','10 100 kr'],c:0,d:2},
+  {q:'2 biler + 4 biler. Totalt?',a:['6 biler','5 biler','7 biler','8 biler'],c:0,d:1},
+  {q:'500 kg + 250 kg?',a:['750 kg','500 kg','700 kg','800 kg'],c:0,d:1},
+  {q:'Måned laster 8 dager. Kostnad?',a:['Det kommer an på hvor mye','Ingenting','100 kr','Hva er pris per dag?'],c:0,d:2},
+  {q:'6 biler × 425 000 kr?',a:['2 550 000 kr','2 500 000 kr','2 600 000 kr','2 700 000 kr'],c:0,d:3},
+  {q:'950 kg × 18,75 kr/kg?',a:['17 812,50 kr','17 500 kr','18 000 kr','18 100 kr'],c:0,d:3},
+  {q:'300 000 kr, 2,5%/år. 1. mnd rente?',a:['625 kr','500 kr','600 kr','750 kr'],c:0,d:3},
 ],
 areal:[
   {q:'3m × 4m = ?',a:['12 m²','7 m²','10 m²','16 m²'],c:0,d:1},
-  {q:'Firkant, side 5m. Omkrets?',a:['20 m','10 m','25 m','15 m'],c:0,d:1},
+  {q:'2m × 5m = ?',a:['10 m²','8 m²','12 m²','15 m²'],c:0,d:1},
+  {q:'5m × 5m = ?',a:['25 m²','20 m²','30 m²','24 m²'],c:0,d:1},
   {q:'2m × 6m = ?',a:['12 m²','8 m²','16 m²','10 m²'],c:0,d:1},
+  {q:'Firkant, side 5m. Omkrets?',a:['20 m','10 m','25 m','15 m'],c:0,d:1},
+  {q:'Firkant, side 6m. Omkrets?',a:['24 m','12 m','30 m','20 m'],c:0,d:1},
   {q:'Trekant b=6m h=4m. Areal?',a:['12 m²','24 m²','10 m²','8 m²'],c:0,d:2},
+  {q:'Trekant b=8m h=6m. Areal?',a:['24 m²','48 m²','30 m²','20 m²'],c:0,d:2},
   {q:'20×20cm fliser, 12m² rom?',a:['300','240','360','280'],c:0,d:2},
+  {q:'25×25cm fliser, 25m² rom?',a:['400','360','450','500'],c:0,d:2},
   {q:'Rektangel 7m × 5m. Omkrets?',a:['24 m','35 m','12 m','14 m'],c:0,d:2},
+  {q:'Rektangel 8m × 6m. Omkrets?',a:['28 m','48 m','14 m','16 m'],c:0,d:2},
   {q:'Trekant b=10m h=8m. Areal?',a:['40 m²','80 m²','50 m²','30 m²'],c:0,d:2},
+  {q:'Trekant b=12m h=10m. Areal?',a:['60 m²','120 m²','70 m²','50 m²'],c:0,d:2},
   {q:'Sirkel r=7m. Areal (π≈3,14)?',a:['153,86 m²','140 m²','160 m²','125 m²'],c:0,d:3},
+  {q:'Sirkel r=5m. Areal (π≈3,14)?',a:['78,5 m²','75 m²','80 m²','70 m²'],c:0,d:3},
   {q:'4,5×3,2m, 129 kr/m²?',a:['1 858 kr','1 800 kr','2 000 kr','1 750 kr'],c:0,d:3},
+  {q:'6m×4m, 150 kr/m²?',a:['3 600 kr','3 500 kr','3 700 kr','3 800 kr'],c:0,d:3},
   {q:'Sirkel r=10m. Omkrets (π≈3,14)?',a:['62,8 m','60 m','65 m','70 m'],c:0,d:3},
+  {q:'Sirkel r=8m. Omkrets (π≈3,14)?',a:['50,24 m','48 m','52 m','56 m'],c:0,d:3},
   {q:'Rektangel 12m × 8m, 75 kr/m²?',a:['7 200 kr','7 000 kr','7 500 kr','8 000 kr'],c:0,d:3},
+  {q:'Rektangel 15m × 10m, 80 kr/m²?',a:['12 000 kr','11 500 kr','12 500 kr','13 000 kr'],c:0,d:3},
+  {q:'6m × 7m = ?',a:['42 m²','40 m²','45 m²','48 m²'],c:0,d:1},
+  {q:'3m × 8m = ?',a:['24 m²','20 m²','28 m²','32 m²'],c:0,d:1},
+  {q:'Trekant b=5m h=3m. Areal?',a:['7,5 m²','15 m²','10 m²','5 m²'],c:0,d:2},
+  {q:'Rektangel 9m × 4m. Omkrets?',a:['26 m','36 m','13 m','18 m'],c:0,d:2},
+  {q:'Trekant b=9m h=7m. Areal?',a:['31,5 m²','63 m²','45 m²','28 m²'],c:0,d:2},
+  {q:'30×20cm fliser, 20m² rom?',a:['333','250','400','300'],c:0,d:2},
+  {q:'Sirkel r=6m. Areal (π≈3,14)?',a:['113,04 m²','110 m²','120 m²','100 m²'],c:0,d:3},
+  {q:'5,2×4,5m, 85 kr/m²?',a:['1 989 kr','1 950 kr','2 000 kr','1 900 kr'],c:0,d:3},
+  {q:'Sirkel r=9m. Omkrets (π≈3,14)?',a:['56,52 m','54 m','60 m','50 m'],c:0,d:3},
 ],
 hode:[
   {q:'5 + 7',a:['12','10','11','13'],c:0,d:1},
@@ -384,6 +522,16 @@ hode:[
   {q:'1728 ÷ 12',a:['144','136','148','132'],c:0,d:3},
   {q:'(20+30) ÷ 2 + 5',a:['30','25','35','28'],c:0,d:3},
   {q:'100 − (25 × 3)',a:['25','50','75','0'],c:0,d:3},
+  {q:'12 + 19',a:['31','30','32','25'],c:0,d:1},
+  {q:'45 − 18',a:['27','25','30','32'],c:0,d:1},
+  {q:'30 + 25',a:['55','50','60','45'],c:0,d:1},
+  {q:'9 × 6',a:['54','48','60','50'],c:0,d:2},
+  {q:'⅖ av 100',a:['40','50','30','60'],c:0,d:2},
+  {q:'√324',a:['18','16','20','17'],c:0,d:2},
+  {q:'48 + 37 − 25',a:['60','55','65','50'],c:0,d:2},
+  {q:'(15+25) × 2',a:['80','70','90','100'],c:0,d:3},
+  {q:'2187 ÷ 9',a:['243','240','250','230'],c:0,d:3},
+  {q:'(50−15) ÷ 5 + 10',a:['17','15','20','12'],c:0,d:3},
 ],
 stat:[
   {q:'Snitt av 2, 4, 6?',a:['4','3','5','6'],c:0,d:1},
@@ -398,6 +546,13 @@ stat:[
   {q:'Snitt av 5, 10, 15, 20, 25?',a:['15','12','18','20'],c:0,d:3},
   {q:'Datasett: 7,8,10,12. Median?',a:['9','10','8','11'],c:0,d:3},
   {q:'3 terninger. Min sum mulig?',a:['3','1','0','6'],c:0,d:3},
+  {q:'Snitt av 3, 9, 15?',a:['9','10','8','12'],c:0,d:2},
+  {q:'Datasett: 2,4,6,8. Median?',a:['5','6','4','7'],c:0,d:2},
+  {q:'Terning – Sjanse for 4?',a:['1/6','1/4','1/3','1/2'],c:0,d:2},
+  {q:'Snitt av 20, 30, 40, 50?',a:['35','40','30','45'],c:0,d:3},
+  {q:'Datasett: 15,20,25,30. Median?',a:['22,5','25','20','27,5'],c:0,d:3},
+  {q:'2 terninger. Sum=11?',a:['1/18','1/6','1/12','1/9'],c:0,d:3},
+  {q:'Kortstokk. Sjanse for spade?',a:['1/4','1/2','1/13','1/52'],c:0,d:2},
 ],
 };
 
@@ -439,28 +594,86 @@ function drawBrick(ctx,x,y,w,h,face,dark,mort,light){
 }
 
 function drawIceCube(ctx,x,y,w,h){
-  // 3D ice cube with gradient and glow
-  const topGrad=ctx.createLinearGradient(x,y,x+w,y+h);
-  topGrad.addColorStop(0,'rgba(220,250,255,.95)');
-  topGrad.addColorStop(0.5,'rgba(180,235,255,.9)');
-  topGrad.addColorStop(1,'rgba(150,220,255,.85)');
-  ctx.fillStyle=topGrad;
+  // Enhanced 3D ice cube with multiple visible faces
+  const margin=2;
+  const faceDepth=Math.min(w,h)*0.15;
+
+  // Top-left to bottom-right depth effect
+  // Draw right face (darker)
+  ctx.fillStyle='rgba(60,140,180,.7)';
+  ctx.beginPath();
+  ctx.moveTo(x+w,y);
+  ctx.lineTo(x+w+faceDepth,y-faceDepth);
+  ctx.lineTo(x+w+faceDepth,y+h-faceDepth);
+  ctx.lineTo(x+w,y+h);
+  ctx.closePath();
+  ctx.fill();
+
+  // Bottom face (darkest)
+  ctx.fillStyle='rgba(40,100,150,.65)';
+  ctx.beginPath();
+  ctx.moveTo(x,y+h);
+  ctx.lineTo(x+w,y+h);
+  ctx.lineTo(x+w+faceDepth,y+h-faceDepth);
+  ctx.lineTo(x+faceDepth,y+h-faceDepth);
+  ctx.closePath();
+  ctx.fill();
+
+  // Main front face with strong gradient
+  const frontGrad=ctx.createLinearGradient(x,y,x,y+h);
+  frontGrad.addColorStop(0,'rgba(230,255,255,.98)');
+  frontGrad.addColorStop(0.3,'rgba(200,245,255,.95)');
+  frontGrad.addColorStop(0.7,'rgba(170,230,255,.92)');
+  frontGrad.addColorStop(1,'rgba(140,210,255,.88)');
+  ctx.fillStyle=frontGrad;
   ctx.fillRect(x,y,w,h);
-  // 3D edges
-  ctx.fillStyle='rgba(100,180,220,.5)';ctx.fillRect(x+w-3,y,3,h);
-  ctx.fillStyle='rgba(80,160,200,.4)';ctx.fillRect(x,y+h-3,w,3);
-  // Glow
-  ctx.strokeStyle='rgba(180,240,255,.7)';ctx.lineWidth=2;ctx.strokeRect(x,y,w,h);
-  // Highlight
-  ctx.strokeStyle='rgba(255,255,255,.3)';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(x+2,y+2);ctx.lineTo(x+w-4,y+2);ctx.stroke();
-  // Frost patterns
-  ctx.strokeStyle='rgba(255,255,255,.2)';ctx.lineWidth=0.8;
-  for(let i=0;i<3;i++){
-    const rx=x+2+Math.random()*(w-4);const ry=y+2+Math.random()*(h-4);
-    const a=Math.random()*Math.PI*2;const l=4+Math.random()*6;
-    ctx.beginPath();ctx.moveTo(rx,ry);ctx.lineTo(rx+Math.cos(a)*l,ry+Math.sin(a)*l);ctx.stroke();
+
+  // Sharp highlight on top-left corner
+  const highlightGrad=ctx.createLinearGradient(x,y,x+w*0.4,y+h*0.3);
+  highlightGrad.addColorStop(0,'rgba(255,255,255,.6)');
+  highlightGrad.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=highlightGrad;
+  ctx.fillRect(x,y,w*0.5,h*0.4);
+
+  // Glow effect (outer border)
+  ctx.strokeStyle='rgba(200,255,255,.9)';
+  ctx.lineWidth=2.5;
+  ctx.strokeRect(x,y,w,h);
+
+  // Inner highlight line
+  ctx.strokeStyle='rgba(255,255,255,.5)';
+  ctx.lineWidth=1.2;
+  ctx.beginPath();
+  ctx.moveTo(x+3,y+3);
+  ctx.lineTo(x+w-5,y+3);
+  ctx.stroke();
+
+  // Diagonal shine reflection
+  ctx.strokeStyle='rgba(255,255,255,.25)';
+  ctx.lineWidth=1;
+  ctx.beginPath();
+  ctx.moveTo(x+w*0.3,y+margin);
+  ctx.lineTo(x+w*0.5,y+h*0.3);
+  ctx.stroke();
+
+  // Frost/ice texture with more patterns
+  ctx.strokeStyle='rgba(255,255,255,.3)';
+  ctx.lineWidth=0.9;
+  for(let i=0;i<5;i++){
+    const rx=x+4+Math.random()*(w-8);
+    const ry=y+4+Math.random()*(h-8);
+    const a=Math.random()*Math.PI*2;
+    const l=3+Math.random()*5;
+    ctx.beginPath();
+    ctx.moveTo(rx,ry);
+    ctx.lineTo(rx+Math.cos(a)*l,ry+Math.sin(a)*l);
+    ctx.stroke();
   }
+
+  // Subtle inner shadow for depth
+  ctx.strokeStyle='rgba(50,100,150,.15)';
+  ctx.lineWidth=1.5;
+  ctx.strokeRect(x+1,y+1,w-2,h-2);
 }
 
 function platW(){
