@@ -553,8 +553,154 @@ stat:[
   {q:'Datasett: 15,20,25,30. Median?',a:['22,5','25','20','27,5'],c:0,d:3},
   {q:'2 terninger. Sum=11?',a:['1/18','1/6','1/12','1/9'],c:0,d:3},
   {q:'Kortstokk. Sjanse for spade?',a:['1/4','1/2','1/13','1/52'],c:0,d:2},
+  {q:'Snitt av 1, 2, 3, 4, 5?',a:['3','2','4','5'],c:0,d:1},
+  {q:'Mynt: kron eller mynt?',a:['50%','25%','75%','100%'],c:0,d:1},
+  {q:'Snitt av 7, 14, 21?',a:['14','12','16','18'],c:0,d:2},
+  {q:'5 terninger. Sjanse 6?',a:['1/6','1/5','1/4','1/3'],c:0,d:3},
+  {q:'3 terninger. Sum=6?',a:['1/36','1/18','1/12','1/6'],c:0,d:3},
 ],
 };
+
+// MASSIV UTVIDELSE AV SPØRSMÅLSBANKEN
+const QB_EXTRA={
+prosent:[
+  {q:'5% av 400?',a:['20','25','15','30'],c:0,d:1},
+  {q:'1% av 200?',a:['2','5','10','1'],c:0,d:1},
+  {q:'50% av 180?',a:['90','80','100','95'],c:0,d:1},
+  {q:'25% av 120?',a:['30','25','35','40'],c:0,d:1},
+  {q:'10% av 300?',a:['30','20','40','50'],c:0,d:1},
+  {q:'20% av 250?',a:['50','40','60','45'],c:0,d:1},
+  {q:'75% av 400?',a:['300','250','350','280'],c:0,d:2},
+  {q:'60% av 500?',a:['300','250','350','400'],c:0,d:2},
+  {q:'33% av 600?',a:['200','180','220','240'],c:0,d:2},
+  {q:'66% av 900?',a:['600','550','650','580'],c:0,d:2},
+  {q:'5% av 2000?',a:['100','80','120','150'],c:0,d:2},
+  {q:'15% av 400?',a:['60','50','70','80'],c:0,d:2},
+  {q:'22% av 550?',a:['121','110','130','140'],c:0,d:2},
+  {q:'88% av 800?',a:['704','650','750','700'],c:0,d:3},
+  {q:'44% av 750?',a:['330','300','360','350'],c:0,d:3},
+  {q:'11% av 990?',a:['109','100','120','110'],c:0,d:3},
+  {q:'99% av 1000?',a:['990','950','1000','900'],c:0,d:3},
+  {q:'7% rabatt på 500?',a:['465','450','480','475'],c:0,d:2},
+  {q:'13% økning på 800?',a:['904','850','900','950'],c:0,d:2},
+  {q:'48% av 2500?',a:['1200','1100','1300','1250'],c:0,d:3},
+],
+mult:[
+  {q:'3 × 2',a:['6','4','8','9'],c:0,d:1},
+  {q:'4 × 3',a:['12','9','15','16'],c:0,d:1},
+  {q:'5 × 4',a:['20','15','25','24'],c:0,d:1},
+  {q:'6 × 4',a:['24','20','28','26'],c:0,d:1},
+  {q:'7 × 4',a:['28','24','32','30'],c:0,d:1},
+  {q:'8 × 3',a:['24','20','28','30'],c:0,d:1},
+  {q:'9 × 2',a:['18','16','20','22'],c:0,d:1},
+  {q:'10 × 4',a:['40','35','45','50'],c:0,d:1},
+  {q:'11 × 2',a:['22','20','24','26'],c:0,d:1},
+  {q:'20 × 2',a:['40','35','45','50'],c:0,d:1},
+  {q:'9 × 8',a:['72','70','75','80'],c:0,d:2},
+  {q:'11 × 7',a:['77','70','84','80'],c:0,d:2},
+  {q:'12 × 6',a:['72','68','76','80'],c:0,d:2},
+  {q:'13 × 6',a:['78','72','84','90'],c:0,d:2},
+  {q:'14 × 5',a:['70','65','75','80'],c:0,d:2},
+  {q:'16 × 5',a:['80','75','85','90'],c:0,d:2},
+  {q:'17 × 4',a:['68','64','72','76'],c:0,d:2},
+  {q:'19 × 5',a:['95','90','100','105'],c:0,d:2},
+  {q:'21 × 3',a:['63','60','66','70'],c:0,d:2},
+  {q:'25 × 5',a:['125','120','130','140'],c:0,d:2},
+  {q:'65 × 23',a:['1495','1480','1510','1500'],c:0,d:3},
+  {q:'78 × 14',a:['1092','1080','1100','1120'],c:0,d:3},
+  {q:'87 × 19',a:['1653','1640','1670','1680'],c:0,d:3},
+  {q:'92 × 26',a:['2392','2380','2400','2420'],c:0,d:3},
+  {q:'156 ÷ 12',a:['13','12','14','15'],c:0,d:3},
+  {q:'182 ÷ 13',a:['14','12','16','18'],c:0,d:3},
+  {q:'225 ÷ 15',a:['15','12','18','20'],c:0,d:3},
+],
+tid:[
+  {q:'Sekunder i 1 minute?',a:['60','30','100','45'],c:0,d:1},
+  {q:'Minutter i 2 timer?',a:['120','60','180','100'],c:0,d:1},
+  {q:'Dager i 1 uke?',a:['7','5','14','10'],c:0,d:1},
+  {q:'Uker i 1 måned?',a:['4','3','5','6'],c:0,d:1},
+  {q:'Måneder i 1 år?',a:['12','10','13','11'],c:0,d:1},
+  {q:'Kl 9 + 3 timer?',a:['12','11','13','14'],c:0,d:1},
+  {q:'Kl 7 + 4 timer?',a:['11','10','12','13'],c:0,d:1},
+  {q:'Kl 8 + 5 timer?',a:['13','12','14','15'],c:0,d:1},
+  {q:'Mandag + 1 dag?',a:['Tirsdag','Onsdag','Søndag','Fredag'],c:0,d:1},
+  {q:'Torsdag + 3 dager?',a:['Søndag','Fredag','Lørdag','Mandag'],c:0,d:1},
+  {q:'9t/dag × 5 dager?',a:['45t','40t','50t','55t'],c:0,d:2},
+  {q:'5t/dag × 6 dager?',a:['30t','25t','35t','40t'],c:0,d:2},
+  {q:'Kl 11:30 + 1t 30min?',a:['13:00','12:30','13:30','14:00'],c:0,d:2},
+  {q:'Kl 13:45 + 2t 15min?',a:['16:00','15:30','16:30','17:00'],c:0,d:2},
+  {q:'2500 min = ? timer',a:['41t 40min','40t','42t','41t 30min'],c:0,d:2},
+  {q:'1800 sek = ? min',a:['30','25','35','40'],c:0,d:2},
+  {q:'Film 2t 30min, start 19:00. Slutt?',a:['21:30','21:00','22:00','21:15'],c:0,d:2},
+  {q:'Kurs 3t 45min, start 10:15. Slutt?',a:['14:00','13:30','14:30','13:45'],c:0,d:3},
+  {q:'6 timer med 3 pauser × 5min?',a:['5h 45min','6t','5,75t','6,25t'],c:0,d:3},
+  {q:'Fra 08:20 til 15:50. Varighet?',a:['7,5t','7t','8t','6,5t'],c:0,d:3},
+],
+handel:[
+  {q:'15 kr + 25 kr?',a:['40 kr','35 kr','45 kr','50 kr'],c:0,d:1},
+  {q:'100 kr − 35 kr?',a:['65 kr','60 kr','70 kr','75 kr'],c:0,d:1},
+  {q:'2 × 12 kr?',a:['24 kr','20 kr','26 kr','28 kr'],c:0,d:1},
+  {q:'3 × 15 kr?',a:['45 kr','40 kr','50 kr','55 kr'],c:0,d:1},
+  {q:'80 kr − 20 kr?',a:['60 kr','55 kr','65 kr','70 kr'],c:0,d:1},
+  {q:'2 is × 18 kr?',a:['36 kr','30 kr','40 kr','42 kr'],c:0,d:1},
+  {q:'5 × 8 kr?',a:['40 kr','35 kr','45 kr','50 kr'],c:0,d:1},
+  {q:'10 × 5 kr?',a:['50 kr','45 kr','55 kr','60 kr'],c:0,d:1},
+  {q:'9 kg × 15 kr/kg?',a:['135 kr','130 kr','140 kr','150 kr'],c:0,d:2},
+  {q:'4 liter × 28 kr/liter?',a:['112 kr','110 kr','115 kr','120 kr'],c:0,d:2},
+  {q:'6 kg × 32,50 kr/kg?',a:['195 kr','190 kr','200 kr','210 kr'],c:0,d:2},
+  {q:'8 × 55 kr?',a:['440 kr','420 kr','450 kr','460 kr'],c:0,d:2},
+  {q:'250 kr − 3 × 45 kr?',a:['115 kr','100 kr','130 kr','140 kr'],c:0,d:2},
+  {q:'1000 kr − 6 × 125 kr?',a:['250 kr','200 kr','300 kr','350 kr'],c:0,d:2},
+  {q:'5 biler × 320 000 kr?',a:['1 600 000 kr','1 500 000 kr','1 700 000 kr','1 550 000 kr'],c:0,d:3},
+  {q:'1200 kg × 42,50 kr/kg?',a:['51 000 kr','50 000 kr','52 000 kr','53 000 kr'],c:0,d:3},
+  {q:'400 000 kr, 3,2% rente/år?',a:['12 800 kr','12 000 kr','13 000 kr','12 500 kr'],c:0,d:3},
+  {q:'3 kos 85 kr, 2 drikke 35 kr?',a:['325 kr','300 kr','350 kr','280 kr'],c:0,d:2},
+],
+areal:[
+  {q:'4m × 3m = ?',a:['12 m²','10 m²','15 m²','14 m²'],c:0,d:1},
+  {q:'6m × 2m = ?',a:['12 m²','10 m²','14 m²','16 m²'],c:0,d:1},
+  {q:'7m × 3m = ?',a:['21 m²','20 m²','24 m²','25 m²'],c:0,d:1},
+  {q:'Firkant 3m. Omkrets?',a:['12 m','9 m','15 m','18 m'],c:0,d:1},
+  {q:'Firkant 8m. Omkrets?',a:['32 m','16 m','24 m','40 m'],c:0,d:1},
+  {q:'Rektangel 10m × 3m. Omkrets?',a:['26 m','30 m','13 m','20 m'],c:0,d:2},
+  {q:'Trekant b=7m h=5m. Areal?',a:['17,5 m²','35 m²','12 m²','20 m²'],c:0,d:2},
+  {q:'Trekant b=11m h=8m. Areal?',a:['44 m²','88 m²','50 m²','40 m²'],c:0,d:2},
+  {q:'15×15cm fliser, 36m² rom?',a:['1600','1200','1800','1400'],c:0,d:2},
+  {q:'Sirkel r=4m. Areal (π≈3,14)?',a:['50,24 m²','48 m²','52 m²','56 m²'],c:0,d:3},
+  {q:'Sirkel r=11m. Omkrets (π≈3,14)?',a:['69,08 m','68 m','70 m','72 m'],c:0,d:3},
+  {q:'8m × 5m, 120 kr/m²?',a:['4800 kr','4700 kr','4900 kr','5000 kr'],c:0,d:3},
+],
+hode:[
+  {q:'7 + 8',a:['15','14','16','13'],c:0,d:1},
+  {q:'20 − 8',a:['12','10','14','16'],c:0,d:1},
+  {q:'30 + 20',a:['50','40','60','45'],c:0,d:1},
+  {q:'60 − 25',a:['35','30','40','45'],c:0,d:1},
+  {q:'8 × 7',a:['56','50','60','54'],c:0,d:1},
+  {q:'9 × 4',a:['36','32','40','38'],c:0,d:1},
+  {q:'50 ÷ 5',a:['10','8','12','15'],c:0,d:1},
+  {q:'18 × 5',a:['90','80','100','85'],c:0,d:2},
+  {q:'⅓ av 90',a:['30','20','40','60'],c:0,d:2},
+  {q:'√100',a:['10','8','12','9'],c:0,d:2},
+  {q:'¾ av 80',a:['60','50','70','65'],c:0,d:2},
+  {q:'32 + 48 − 20',a:['60','55','65','70'],c:0,d:2},
+  {q:'(10+20) × 3',a:['90','80','100','85'],c:0,d:3},
+  {q:'1000 ÷ 8',a:['125','120','130','100'],c:0,d:3},
+  {q:'(60−10) ÷ 5',a:['10','8','12','15'],c:0,d:3},
+],
+stat:[
+  {q:'Snitt av 4, 8, 12?',a:['8','6','10','12'],c:0,d:2},
+  {q:'Datasett: 3,5,7,9. Median?',a:['6','5','7','8'],c:0,d:2},
+  {q:'Terning. Sjanse for 3?',a:['1/6','1/4','1/3','1/2'],c:0,d:2},
+  {q:'Snitt av 100, 200, 300?',a:['200','150','250','300'],c:0,d:3},
+  {q:'Datasett: 10,20,30,40,50. Median?',a:['30','25','35','40'],c:0,d:3},
+  {q:'2 terninger. Sum=3?',a:['1/18','1/6','1/12','1/9'],c:0,d:3},
+],
+};
+
+// Merge alle spørsmål
+for(const cat in QB_EXTRA){
+  QB[cat]=[...QB[cat],...QB_EXTRA[cat]];
+}
 
 const CATNAMES={mix:'Miks',prosent:'Prosentregning',mult:'Multiplikasjon',tid:'Tidsregning',handel:'Handel & penger',areal:'Areal & mål',hode:'Hoderegning',stat:'Statistikk'};
 const DPTS={easy:1,med:2,hard:3};
@@ -796,48 +942,142 @@ function getScrollPx(){
 }
 
 // ──────────────────────────────────────────────
-//  QUESTION
+//  QUESTION - AI POWERED WITH ADVANCED CACHING
 // ──────────────────────────────────────────────
-function pickQ(){
-  const allowed=selD==='easy'?[1]:selD==='med'?[2]:[3];
-  const pool=Object.values(QB).flat().filter(q=>allowed.includes(q.d));
-  const avail=pool.filter(q=>!GS.used.includes(q.q));
-  if(!avail.length){GS.used=[];return pickQ();}
-  const p=avail[Math.floor(Math.random()*avail.length)];
-  GS.used.push(p.q);
-  const sh=p.a.map((a,i)=>({a,ok:i===p.c})).sort(()=>Math.random()-.5);
-  let cat='mix';
-  for(const[k,arr] of Object.entries(QB)){if(arr.includes(p)){cat=k;break;}}
-  return{q:p.q,ans:sh.map(s=>s.a),ci:sh.findIndex(s=>s.ok),cat,d:p.d};
+const CATS=['prosent','mult','tid','handel','areal','hode','stat','geom','potens','brøk'];
+let queuedQuestions=[];
+let apiUnavailable=false;
+
+async function fetchAIQuestion(){
+  const diff=selD==='easy'?1:selD==='med'?2:3;
+  const cat=CATS[Math.floor(Math.random()*CATS.length)];
+
+  if(apiUnavailable) return fallbackQuestion(diff,cat);
+
+  try{
+    const res=await fetch(`/api/question?category=${cat}&difficulty=${diff}&debug=true`,{
+      signal:AbortSignal.timeout(10000) // 10 second timeout
+    });
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data=await res.json();
+    if(!data.q||!data.a) throw new Error('Invalid response format');
+    return{...data,cat,d:diff};
+  }catch(e){
+    console.warn(`AI question failed (${cat}-${diff}): ${e.message}. Using fallback.`);
+    apiUnavailable=true;
+    // Retry with API after 30 seconds
+    setTimeout(()=>{ apiUnavailable=false; },30000);
+    return fallbackQuestion(diff,cat);
+  }
 }
 
-function showQ(){
+function fallbackQuestion(diff,cat){
+  // Use hardcoded questions as backup
+  const allowed=diff===1?[1]:diff===2?[2]:[3];
+  const pool=Object.values(QB).flat().filter(q=>allowed.includes(q.d));
+  if(pool.length===0){
+    return{q:'Ingen backup-spørsmål tilgjengelig',a:['OK','OK','OK','OK'],c:0,cat:'error',d:diff};
+  }
+  const p=pool[Math.floor(Math.random()*pool.length)];
+  const sh=p.a.map((a,i)=>({a,ok:i===p.c})).sort(()=>Math.random()-.5);
+  return{q:p.q,ans:sh.map(s=>s.a),ci:sh.findIndex(s=>s.ok),cat,d:p.d,c:p.c};
+}
+
+async function pickQ(){
+  // Maintain queue of 3 pre-fetched questions for smooth gameplay
+  while(queuedQuestions.length<3){
+    queuedQuestions.push(fetchAIQuestion());
+  }
+
+  const p=await queuedQuestions.shift();
+
+  // Continue prefetching in background
+  setTimeout(()=>{
+    if(queuedQuestions.length<3){
+      queuedQuestions.push(fetchAIQuestion());
+    }
+  },100);
+
+  if(!p.ans){
+    p.ans=p.a;
+  }
+
+  return{q:p.q,ans:p.ans,ci:p.ci||0,cat:p.cat||'mix',d:p.d};
+}
+
+// Debug: show cache status
+window.showCacheStatus=async function(){
+  try{
+    const res=await fetch('/api/cache-status');
+    const data=await res.json();
+    console.table(data.stats);
+    console.log('Cache by category:',data.categories);
+  }catch(e){
+    console.error('Could not fetch cache status:',e);
+  }
+};
+
+async function showQ(){
   if(!GS) return;
   if(GS.qtimer) clearInterval(GS.qtimer);
-  GS.answering=true; GS.qStart=Date.now();
-  GS.curQ=pickQ();
-  const t=getTimer(GS.curQ.q);
-  GS.timerMax=t; GS.timerLeft=t;
-  document.getElementById('qCat').textContent=CATNAMES[GS.curQ.cat]||GS.curQ.cat;
-  document.getElementById('qText').textContent=GS.curQ.q;
-  document.getElementById('qBonus').classList.remove('show');
-  const grid=document.getElementById('aGrid'); grid.innerHTML='';
-  GS.curQ.ans.forEach((a,i)=>{
-    const b=document.createElement('button');
-    b.className='abtn'; b.textContent=a;
-    b.onclick=()=>answer(i,b);
-    grid.appendChild(b);
-  });
-  // Show bonus hint immediately (bonus = answer within first 2 seconds)
-  document.getElementById('qBonus').classList.add('show');
-  updTBar();
-  GS.qtimer=setInterval(()=>{
-    GS.timerLeft-=.1; updTBar();
-    // Hide bonus hint after 2 seconds have passed
-    const elapsed=(Date.now()-GS.qStart)/1000;
-    if(elapsed>2) document.getElementById('qBonus').classList.remove('show');
-    if(GS.timerLeft<=0){clearInterval(GS.qtimer);answer(-1,null);}
-  },100);
+
+  // Show loading state
+  const qText = document.getElementById('qText');
+  const aGrid = document.getElementById('aGrid');
+  qText.textContent = '⏳ Laster spørsmål...';
+  aGrid.innerHTML = '';
+
+  try {
+    GS.answering = true;
+    GS.qStart = Date.now();
+    GS.curQ = await pickQ();
+
+    const t = getTimer(GS.curQ.q);
+    GS.timerMax = t;
+    GS.timerLeft = t;
+
+    document.getElementById('qCat').textContent = CATNAMES[GS.curQ.cat] || GS.curQ.cat;
+    qText.textContent = GS.curQ.q;
+    document.getElementById('qBonus').classList.remove('show');
+    aGrid.innerHTML = '';
+
+    // Shuffle answers
+    const answers = GS.curQ.ans.map((a, i) => ({ text: a, idx: i }));
+    for (let i = answers.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [answers[i], answers[j]] = [answers[j], answers[i]];
+    }
+
+    const correctIdx = answers.findIndex(a => a.idx === GS.curQ.ci);
+
+    answers.forEach((a, i) => {
+      const b = document.createElement('button');
+      b.className = 'abtn';
+      b.textContent = a.text;
+      b.onclick = () => answer(i === correctIdx ? 1 : 0, b);
+      aGrid.appendChild(b);
+    });
+
+    // Show bonus hint immediately (bonus = answer within first 2 seconds)
+    document.getElementById('qBonus').classList.add('show');
+    updTBar();
+
+    GS.qtimer = setInterval(() => {
+      GS.timerLeft -= .1;
+      updTBar();
+      // Hide bonus hint after 2 seconds have passed
+      const elapsed = (Date.now() - GS.qStart) / 1000;
+      if (elapsed > 2) document.getElementById('qBonus').classList.remove('show');
+      if (GS.timerLeft <= 0) {
+        clearInterval(GS.qtimer);
+        answer(0, null);
+      }
+    }, 100);
+  } catch (e) {
+    console.error('Error showing question:', e);
+    qText.textContent = '❌ Feil ved lasting av spørsmål';
+    aGrid.innerHTML = '<p style="color:red">Sjekk at serveren kjører</p>';
+  }
 }
 
 function updTBar(){
