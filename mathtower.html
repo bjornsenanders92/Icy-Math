@@ -113,6 +113,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a1628;font-family:
 .lb-sub{font-size:10px;color:rgba(255,255,255,.3);margin-top:2px;}
 .lb-empty{color:rgba(255,255,255,.25);text-align:center;padding:28px;font-size:15px;line-height:1.9;}
 .hidden{display:none!important;}
+#bonusModal{display:none!important;}
+#bonusModal.show{display:flex!important;}
 </style>
 </head>
 <body>
@@ -178,6 +180,19 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a1628;font-family:
     <div id="tbarw"><div id="tbar" style="width:100%"></div></div>
     <div class="qtext" id="qText">Laster...</div>
     <div class="agrid" id="aGrid"></div>
+  </div>
+  <!-- BONUS CHALLENGE MODAL -->
+  <div id="bonusModal" style="position:absolute;inset:0;background:rgba(0,0,0,.75);display:none;z-index:100;flex-direction:column;align-items:center;justify-content:center;padding:20px;">
+    <div style="background:rgba(10,40,80,.95);border:2px solid rgba(255,200,0,.6);border-radius:20px;padding:28px;max-width:320px;text-align:center;">
+      <div style="font-family:'Fredoka One',cursive;font-size:24px;color:#ffe033;margin-bottom:12px;">⚡ BONUS UTFORDRING!</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.7);margin-bottom:16px;line-height:1.5;">Besvara hard spørsmål og få <strong>5 ekstra etasjer</strong>! Men tiden går videre...</div>
+      <div id="bonusQText" style="font-size:18px;font-weight:800;color:#fff;margin:20px 0;min-height:28px;line-height:1.3;"></div>
+      <div id="bonusGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;"></div>
+      <div style="display:flex;gap:10px;justify-content:center;">
+        <button id="bonusDecline" class="btn-back" onclick="bonusDecline()" style="cursor:pointer;">❌ Nei takk</button>
+        <button id="bonusAccept" class="btn-go" onclick="bonusAccept()" style="cursor:pointer;padding:12px 24px;">✅ Ja!</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -552,6 +567,7 @@ function startGame(){
     qtimer:null, timerLeft:10, timerMax:10,
     curQ:null, answering:false, qStart:0,
     lastTS:0,
+    bonusShown:false, bonusActive:false, bonusCurQ:null,
   };
 
   document.getElementById('hScore').textContent='0';
@@ -634,8 +650,101 @@ function updTBar(){
   b.style.background=p>60?'linear-gradient(90deg,#1dd1a1,#ffe033)':p>25?'linear-gradient(90deg,#ffe033,#ff8c00)':'linear-gradient(90deg,#ff5050,#b00)';
 }
 
+// ──────────────────────────────────────────────
+//  BONUS CHALLENGE
+// ──────────────────────────────────────────────
+function pickBonusQ(){
+  const diff=selD==='easy'?1:selD==='med'?2:3;
+  const pool=Object.values(QB).flat().filter(q=>q.d===diff);
+  const p=pool[Math.floor(Math.random()*pool.length)];
+  const sh=p.a.map((a,i)=>({a,ok:i===p.c})).sort(()=>Math.random()-.5);
+  let cat='mix';
+  for(const[k,arr] of Object.entries(QB)){if(arr.includes(p)){cat=k;break;}}
+  return{q:p.q,ans:sh.map(s=>s.a),ci:sh.findIndex(s=>s.ok),cat,d:p.d};
+}
+
+function showBonusChallenge(){
+  if(!GS||GS.bonusActive) return;
+  GS.bonusActive=true;
+  GS.bonusCurQ=pickBonusQ();
+  const modal=document.getElementById('bonusModal');
+  document.getElementById('bonusQText').textContent=GS.bonusCurQ.q;
+  const grid=document.getElementById('bonusGrid'); grid.innerHTML='';
+  GS.bonusCurQ.ans.forEach((a,i)=>{
+    const b=document.createElement('button');
+    b.className='abtn'; b.textContent=a;
+    b.style.cssText='font-size:14px;padding:12px 8px;';
+    b.onclick=()=>bonusAnswer(i,b);
+    grid.appendChild(b);
+  });
+  modal.classList.add('show');
+}
+
+function bonusAccept(){
+  if(!GS||!GS.bonusActive) return;
+  document.getElementById('bonusAccept').disabled=true;
+  document.getElementById('bonusDecline').disabled=true;
+  // Timeout on bonus question: auto-fail if not answered in 8 seconds
+  setTimeout(()=>{
+    if(GS&&GS.bonusActive&&GS.bonusCurQ){
+      bonusAnswer(-1,null);
+    }
+  },8000);
+}
+
+function bonusDecline(){
+  if(!GS||!GS.bonusActive) return;
+  GS.bonusActive=false;
+  GS.bonusCurQ=null;
+  document.getElementById('bonusModal').classList.remove('show');
+  GS.bonusShown=false;
+}
+
+function bonusAnswer(idx,btn){
+  if(!GS||!GS.bonusActive||!GS.bonusCurQ) return;
+  document.querySelectorAll('#bonusGrid .abtn').forEach(b=>b.disabled=true);
+
+  if(idx===GS.bonusCurQ.ci){
+    // CORRECT: add 5 platforms
+    if(btn) btn.classList.add('ok');
+    sfxCorrect();
+    sfxBonus();
+    spawnLabel('🎁 +5 ETASJER!','#ffe033',true);
+    const topPlat=GS.plats.reduce((a,b)=>a.sy<b.sy?a:b);
+    for(let i=0;i<5;i++){
+      const slot=GS.nextSlot;
+      const sy=topPlat.sy-(i+1)*PLAT_GAP;
+      const w=platW();
+      let x=i%2===1?AW*0.44+Math.random()*(AW*0.36-w):AW*0.05+Math.random()*(AW*0.28);
+      x=Math.max(8,Math.min(AW-w-8,x));
+      GS.plats.push({x,sy,w,slot});
+      GS.nextSlot++;
+    }
+    setTimeout(()=>{
+      GS.bonusActive=false;
+      GS.bonusCurQ=null;
+      document.getElementById('bonusModal').classList.remove('show');
+      GS.bonusShown=false;
+    },1200);
+  } else {
+    // WRONG or TIMEOUT: penalty like normal
+    document.querySelectorAll('#bonusGrid .abtn')[GS.bonusCurQ.ci]?.classList.add('ok');
+    if(btn) btn.classList.add('no');
+    if(idx===-1){spawnLabel('❌ BONUS TIMEOUT!','#ff5050',false);}else{spawnLabel('❌ BONUS FEIL!','#ff5050',false);}
+    sfxWrong();
+    const penaltyPx=getScrollPx()*3.5;
+    applyScrollPenalty(penaltyPx);
+    setTimeout(()=>{
+      GS.bonusActive=false;
+      GS.bonusCurQ=null;
+      document.getElementById('bonusModal').classList.remove('show');
+      GS.bonusShown=false;
+    },900);
+  }
+}
+
 function answer(idx,btn){
-  if(!GS||!GS.answering) return;
+  if(!GS||!GS.answering||GS.bonusActive) return;
   GS.answering=false;
   clearInterval(GS.qtimer);
   document.querySelectorAll('.abtn').forEach(b=>b.disabled=true);
@@ -790,6 +899,12 @@ function loop(ts=0){
   // HUD
   document.getElementById('spdbadge').textContent=DLABELS[selD]+' · Etasje '+(GS.curSlot+1)+' · ⏱'+getTimer()+'s';
   document.getElementById('hFloor').textContent='Etasje '+(GS.curSlot+1);
+
+  // ── BONUS CHALLENGE CHECK (random after some questions) ──
+  if(!GS.bonusShown && GS.answering && GS.qCount>=2 && Math.random()<0.05){
+    showBonusChallenge();
+    GS.bonusShown=true;
+  }
 
   // ── JUMP TRIGGER ──
   if(GS.jumpPending && GS.onGround){
