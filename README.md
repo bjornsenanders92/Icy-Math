@@ -17,13 +17,13 @@ Hele spillet er én fil: [`mathtower.html`](mathtower.html) (ingen byggesteg). `
 Taster: `1–4` svar · `J`/`N` bonus · `F` frys · `M` lyd av/på.
 
 ## Versjoner
-| Tag | Innhold |
-|---|---|
-| `v2.0` | Oppgaver som genereres, bonusutfordring, XP/merker, ny grafikk |
-| `v2.1` | Balanse fra simulator, tøffere bonus, Dagens utfordring, Utfordre venn |
-| `v2.2` | Ingenting dekker lenger svaralternativene; spillflaten måles riktig på mobil; tester ligger i repoet |
+| Versjon | Commit | Innhold |
+|---|---|---|
+| 2.0 | `360f07e` | Oppgaver som genereres, bonusutfordring, XP/merker, ny grafikk |
+| 2.1 | `74b1e4b` | Balanse fra simulator, tøffere bonus, Dagens utfordring, Utfordre venn |
+| 2.2 | `f98a078` | Ingenting dekker lenger svaralternativene; spillflaten måles riktig på mobil; tester ligger i repoet |
 
-Gå tilbake til en versjon: `git checkout v2.1 -- mathtower.html`
+Gå tilbake til en versjon: `git checkout 74b1e4b -- mathtower.html` (bytt inn commit fra tabellen).
 
 ## Tester og balansering
 Se [`tools/README.md`](tools/README.md). Kort:
