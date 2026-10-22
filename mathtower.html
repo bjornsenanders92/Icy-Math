@@ -2,13 +2,13 @@
 <html lang="no">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>IcyMath</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{width:100%;height:100%;overflow:hidden;background:#050d1c;font-family:'Nunito',sans-serif;color:#fff;}
-#app{width:100%;max-width:430px;height:100%;margin:0 auto;position:relative;overflow:hidden;background:#071428;}
+#app{width:100%;max-width:430px;height:100%;height:100dvh;margin:0 auto;position:relative;overflow:hidden;background:#071428;}
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;transition:opacity .25s;}
 .screen.off{opacity:0;pointer-events:none;}
 .bgc{position:absolute;inset:0;z-index:0;pointer-events:none;}
@@ -84,7 +84,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#050d1c;font-family:
 #freezeBtn.ready{animation:pulseF 1.2s ease-in-out infinite;}
 @keyframes pulseF{0%,100%{transform:scale(1)}50%{transform:scale(1.08);box-shadow:0 0 24px rgba(127,227,255,.9)}}
 #spdbadge{position:absolute;top:70px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:4px 13px;font-size:10px;letter-spacing:1px;z-index:25;pointer-events:none;white-space:nowrap;}
-#qpanel{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,rgba(8,30,62,.97),rgba(5,18,40,.99));border-top:2px solid rgba(100,200,255,.4);padding:11px 13px 16px;z-index:20;box-shadow:0 -10px 40px rgba(0,0,0,.4);}
+#qpanel{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,rgba(8,30,62,.97),rgba(5,18,40,.99));border-top:2px solid rgba(100,200,255,.4);padding:11px 13px calc(16px + env(safe-area-inset-bottom));z-index:20;box-shadow:0 -10px 40px rgba(0,0,0,.4);}
 .qptop{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
 .qcat{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);}
 .qbonus{font-size:11px;font-weight:800;color:#ffe033;background:rgba(255,200,0,.15);padding:3px 10px;border-radius:20px;display:none;}
@@ -92,7 +92,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#050d1c;font-family:
 @keyframes blnk{from{opacity:.6}to{opacity:1;filter:drop-shadow(0 0 6px #ffe033)}}
 #tbarw{width:100%;height:6px;background:rgba(255,255,255,.08);border-radius:5px;margin-bottom:9px;overflow:hidden;}
 #tbar{height:100%;border-radius:5px;transition:width .1s linear;}
-.qtext{font-size:22px;font-weight:800;color:#fff;text-align:center;min-height:30px;margin-bottom:10px;line-height:1.25;}
+/* Fixed two-line height so the panel never grows over the game when a question wraps */
+.qtext{font-size:22px;font-weight:800;color:#fff;text-align:center;height:56px;margin-bottom:10px;line-height:1.25;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.qtext.long{font-size:17px;}
+.qlock{display:none;font-size:11px;font-weight:900;color:#ffb347;letter-spacing:.5px;}
+#qpanel.locked .qlock{display:block;}
+#qpanel.locked .qcat,#qpanel.locked .qbonus{display:none!important;}
+#qpanel.locked .agrid{opacity:.35;pointer-events:none;}
 .agrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .abtn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:12px;padding:14px 8px;font-size:16px;font-weight:700;font-family:'Nunito',sans-serif;color:#fff;cursor:pointer;transition:all .12s;text-align:center;}
 .abtn:active:not(:disabled){background:rgba(255,255,255,.16);transform:scale(.97);}
@@ -111,30 +117,47 @@ html,body{width:100%;height:100%;overflow:hidden;background:#050d1c;font-family:
 .milestone small{display:block;font-size:14px;font-family:'Nunito';font-weight:800;color:#ffe033;letter-spacing:2px;}
 @keyframes mile{0%{opacity:0;transform:scale(.5)}15%{opacity:1;transform:scale(1.1)}30%{transform:scale(1)}80%{opacity:1}100%{opacity:0;transform:translateY(-30px)}}
 /* BONUS MODAL */
-/* light backdrop + card near the top: the sinking world and the main question's timer stay visible underneath */
-#bonusModal{position:absolute;inset:0;background:rgba(2,10,25,.38);display:none;z-index:100;flex-direction:column;align-items:center;justify-content:flex-start;padding:92px 16px 20px;}
-.bstat{display:flex;gap:6px;justify-content:center;margin:4px 0 12px;}
-.bstat div{flex:1;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:6px 4px;font-size:10px;font-weight:800;letter-spacing:.5px;color:rgba(255,255,255,.6);text-transform:uppercase;}
-.bstat b{display:block;font-family:'Fredoka One',cursive;font-size:18px;color:#fff;font-weight:400;letter-spacing:0;text-transform:none;}
+/* The popup lives only in the game area ABOVE the answer panel (--panH is set in startGame), so it can
+   never cover the answer buttons. Only the card itself takes clicks. */
+#bonusModal{position:absolute;top:0;left:0;right:0;bottom:var(--panH,230px);background:rgba(2,10,25,.3);display:none;z-index:100;flex-direction:column;align-items:center;justify-content:center;padding:54px 10px 8px;pointer-events:none;}
+.bstat{display:flex;gap:6px;justify-content:center;margin:6px 0 8px;}
+.bstat div{flex:1;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:4px 4px;font-size:10px;font-weight:800;letter-spacing:.5px;color:rgba(255,255,255,.6);text-transform:uppercase;}
+.bstat b{display:block;font-family:'Fredoka One',cursive;font-size:16px;color:#fff;font-weight:400;letter-spacing:0;text-transform:none;}
 .bstat .hot{border-color:rgba(255,80,80,.6);}
 .bstat .hot b{color:#ff7070;}
 .bcat{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:3px;}
+/* Short phones: drop decoration so the whole bonus card (incl. all 4 answers) fits above the panel */
+@media (max-height:700px){
+  #bonusModal{padding-top:46px;}
+  .bcard{padding:10px 12px;border-radius:16px;}
+  .bttl{font-size:18px;}
+  .bcat,.bwarn{display:none;}
+  .bstat{margin:4px 0 6px;}
+  .bstat b{font-size:14px;}
+  .bsub{font-size:11px;margin:2px 0 6px;}
+  .brisk{margin-bottom:6px;}
+  .brisk div{padding:4px;font-size:11px;}
+  #bonusQText{font-size:16px;margin:2px 0 6px;min-height:0;}
+  #bonusGrid{gap:6px;}
+  #bonusGrid .abtn{padding:7px 6px;font-size:14px;}
+}
 #bonusModal.show{display:flex;animation:fadein .2s;}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
-.bcard{background:linear-gradient(160deg,rgba(20,50,95,.97),rgba(8,25,55,.98));border:2px solid rgba(255,210,60,.7);border-radius:22px;padding:22px 20px;width:100%;max-width:330px;text-align:center;box-shadow:0 0 50px rgba(255,200,0,.35),inset 0 0 40px rgba(255,200,0,.05);animation:bpop .35s cubic-bezier(.2,1.4,.4,1);}
+.bcard{pointer-events:auto;max-height:100%;overflow-y:auto;background:linear-gradient(160deg,rgba(20,50,95,.97),rgba(8,25,55,.98));border:2px solid rgba(255,210,60,.7);border-radius:20px;padding:14px 14px;width:100%;max-width:330px;text-align:center;box-shadow:0 0 50px rgba(255,200,0,.35),inset 0 0 40px rgba(255,200,0,.05);animation:bpop .35s cubic-bezier(.2,1.4,.4,1);}
 @keyframes bpop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
-.bttl{font-family:'Fredoka One',cursive;font-size:26px;color:#ffe033;text-shadow:0 0 18px rgba(255,224,51,.6);}
-.bsub{font-size:13px;color:rgba(255,255,255,.75);margin:8px 0 14px;line-height:1.5;}
+.bttl{font-family:'Fredoka One',cursive;font-size:22px;color:#ffe033;text-shadow:0 0 18px rgba(255,224,51,.6);}
+.bsub{font-size:12px;color:rgba(255,255,255,.75);margin:4px 0 10px;line-height:1.45;}
 .bsub b{color:#7fe3ff;}
-.brisk{display:flex;gap:8px;justify-content:center;margin-bottom:14px;}
-.brisk div{flex:1;border-radius:12px;padding:8px 6px;font-size:12px;font-weight:800;line-height:1.3;}
+.brisk{display:flex;gap:8px;justify-content:center;margin-bottom:10px;}
+.brisk div{flex:1;border-radius:12px;padding:6px 6px;font-size:12px;font-weight:800;line-height:1.3;}
 .br-win{background:rgba(29,209,161,.15);color:#1dd1a1;border:1px solid rgba(29,209,161,.35);}
 .br-lose{background:rgba(255,80,80,.15);color:#ff7070;border:1px solid rgba(255,80,80,.35);}
-.bwarn{font-size:11px;color:#ffb347;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;animation:blnk .6s ease-in-out infinite alternate;}
-#btbarw{width:100%;height:6px;background:rgba(255,255,255,.1);border-radius:5px;margin:6px 0 10px;overflow:hidden;}
+.bwarn{font-size:11px;color:#ffb347;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;animation:blnk .6s ease-in-out infinite alternate;}
+#btbarw{width:100%;height:6px;background:rgba(255,255,255,.1);border-radius:5px;margin:4px 0 8px;overflow:hidden;}
 #btbar{height:100%;width:100%;border-radius:5px;background:linear-gradient(90deg,#ffe033,#ff8c00);}
-#bonusQText{font-size:21px;font-weight:800;color:#fff;margin:6px 0 12px;min-height:28px;line-height:1.3;}
+#bonusQText{font-size:19px;font-weight:800;color:#fff;margin:4px 0 10px;min-height:28px;line-height:1.3;}
 #bonusGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+#bonusGrid .abtn{padding:11px 6px;}
 .bbtns{display:flex;gap:10px;justify-content:center;}
 /* GAME OVER */
 #sOver{z-index:30;gap:10px;padding:16px;overflow-y:auto;justify-content:safe center;}
@@ -285,7 +308,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#050d1c;font-family:
   </div>
   <div id="spdbadge">🌱 Lett · Etasje 1</div>
   <div id="qpanel">
-    <div class="qptop"><div class="qcat" id="qCat">–</div><div class="qbonus" id="qBonus">⚡ LYNRASK ×1.5!</div></div>
+    <div class="qptop"><div class="qcat" id="qCat">–</div><div class="qbonus" id="qBonus">⚡ LYNRASK ×1.5!</div><div class="qlock">🔒 Svar på bonusen først – hovedtimeren går!</div></div>
     <div id="tbarw"><div id="tbar" style="width:100%"></div></div>
     <div class="qtext" id="qText">Laster...</div>
     <div class="agrid" id="aGrid"></div>
@@ -297,7 +320,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#050d1c;font-family:
       <div class="bcat" id="bCat">–</div>
       <div class="bstat"><div id="bsMain">Hovedspørsmål<b id="bsMainV">–</b></div><div id="bsWater">Til vannet<b id="bsWaterV">–</b></div></div>
       <div id="bOffer">
-        <div class="bsub">Et av nivåets tøffeste spørsmål. Tør du?<br><b>Alt går videre</b> mens du bestemmer deg og svarer.</div>
+        <div class="bsub">Tør du? <b>Alt går videre</b> mens du svarer.<br>Svarer du på hovedspørsmålet, er det et nei.</div>
         <div class="brisk"><div class="br-win">✅ Riktig<br>+5 ETASJER</div><div class="br-lose">❌ Feil / tid ute<br>FALL ~2 ETASJER</div></div>
         <div class="bbtns">
           <button class="btn-back" onclick="bonusDecline()">Nei takk</button>
@@ -755,8 +778,13 @@ function startGame(mode='normal'){
 
   const gc=document.getElementById('gc');
   const qp=document.getElementById('qpanel');
+  qp.classList.remove('locked');
+  // Measure the panel with its 4 answer buttons in place (on the first game they don't exist yet,
+  // which used to make the panel look 117px shorter and hid the water line behind it)
+  document.getElementById('aGrid').innerHTML='<button class="abtn" disabled>…</button>'.repeat(4);
   const panH=qp.offsetHeight+4;
   const gH=AH-panH;
+  document.getElementById('sGame').style.setProperty('--panH',panH+'px');   // bonus popup stays above this
   gc.width=AW; gc.height=gH;
 
   const WATER_TOP=gH-WATER_H;
@@ -818,7 +846,8 @@ function showQ(){
   const t=getTimer(GS.curQ.q);
   GS.timerMax=t; GS.timerLeft=t;
   document.getElementById('qCat').textContent=CATNAMES[GS.curQ.cat]||GS.curQ.cat;
-  document.getElementById('qText').textContent=GS.curQ.q;
+  const qt=document.getElementById('qText');
+  qt.textContent=GS.curQ.q; qt.classList.toggle('long',GS.curQ.q.length>30);
   const grid=document.getElementById('aGrid'); grid.innerHTML='';
   GS.curQ.ans.forEach((a,i)=>{
     const b=document.createElement('button');
@@ -869,7 +898,10 @@ function bumpScore(){const el=document.getElementById('hScore');el.textContent=G
 // ──────────────────────────────────────────────
 function answer(idx,btn){
   if(!GS||!GS.answering) return;
-  if(GS.bonusActive&&idx!==-1) return;   // modal covers the buttons anyway; only the timer may resolve
+  if(GS.bonusActive&&idx!==-1){
+    if(GS.bonusStage===1) closeBonus();   // answering the main question while the offer shows = "Nei takk"
+    else return;                          // bonus accepted: it must be answered first (main timer keeps running)
+  }
   GS.answering=false;
   clearInterval(GS.qtimer);
   document.querySelectorAll('#aGrid .abtn').forEach(b=>b.disabled=true);
@@ -964,6 +996,7 @@ function bonusDecline(){
 function bonusAccept(){
   if(!GS||!GS.bonusActive||GS.bonusStage!==1) return;
   GS.bonusStage=2;
+  document.getElementById('qpanel').classList.add('locked');
   document.getElementById('bOffer').classList.add('hidden');
   document.getElementById('bPlay').classList.remove('hidden');
   document.getElementById('bonusQText').textContent=GS.bonusCurQ.q;
@@ -981,6 +1014,7 @@ function closeBonus(){
   if(GS?.btimer)clearInterval(GS.btimer);
   if(GS){GS.bonusActive=false;GS.bonusStage=0;GS.bonusCurQ=null;}
   document.getElementById('bonusModal').classList.remove('show');
+  document.getElementById('qpanel').classList.remove('locked');
 }
 function bonusAnswer(idx,btn){
   if(!GS||!GS.bonusActive||GS.bonusStage!==2) return;
@@ -1020,7 +1054,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='m'||e.key==='M'){toggleMute();return;}
   if(!GS) return;
   if(e.key==='f'||e.key==='F') useFreeze();
-  if(GS.answering&&!GS.bonusActive&&['1','2','3','4'].includes(e.key)){const b=document.querySelectorAll('#aGrid .abtn')[+e.key-1];if(b&&!b.disabled)b.click();}
+  if(GS.answering&&(!GS.bonusActive||GS.bonusStage===1)&&['1','2','3','4'].includes(e.key)){const b=document.querySelectorAll('#aGrid .abtn')[+e.key-1];if(b&&!b.disabled)b.click();}
   if(GS.bonusActive&&GS.bonusStage===2&&['1','2','3','4'].includes(e.key)){const b=document.querySelectorAll('#bonusGrid .abtn')[+e.key-1];if(b&&!b.disabled)b.click();}
   if(GS.bonusActive&&GS.bonusStage===1){if(e.key==='j'||e.key==='J'||e.key==='Enter')bonusAccept();if(e.key==='n'||e.key==='N'||e.key==='Escape')bonusDecline();}
 });
@@ -1367,6 +1401,7 @@ function endGame(){
   if(GS?.qtimer) clearInterval(GS.qtimer);
   if(GS?.btimer) clearInterval(GS.btimer);
   document.getElementById('bonusModal').classList.remove('show');
+  document.getElementById('qpanel').classList.remove('locked');
   const gs=GS; GS=null;
   const stats={score:gs.score,floor:gs.floor+1,correct:gs.correct,bestStreak:gs.bestStreak,bonusWins:gs.bonusWins,fastCount:gs.fastCount,diff:selD};
   const entry={score:gs.score,floor:gs.floor+1,correct:gs.correct,streak:gs.bestStreak,bonus:gs.bonusWins,diff:selD,mode:gs.mode,date:Date.now()};

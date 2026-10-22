@@ -1,0 +1,13 @@
+{
+  "name": "icymath-tools",
+  "private": true,
+  "description": "Tests and balance simulator for IcyMath (the game itself is the single file ../mathtower.html)",
+  "scripts": {
+    "test:questions": "node test-questions.js",
+    "test:e2e": "node test-e2e.js",
+    "sim": "node balance-sim.js"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.64.1"
+  }
+}
